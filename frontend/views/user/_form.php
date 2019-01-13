@@ -25,18 +25,18 @@ use common\models\User;
         ],
         'options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <? //echo $form->field($model, 'status')->textInput() ?>
+    <? /**echo $form->field($model, 'status')->textInput() */ ?>
 
 
 
     <?= $form->field($model, 'avatar')->fileInput(['accept' => 'image/*'])->label('Icon')
-    //->label(Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO)))    ?>
+    /*->label(Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO))) */   ?>
 
     <?= Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO), ['class' => 'col-sm-offset-3']) ?>
     <br><br>
 
     <?= $form->field($model, 'email') ?>
-    <? //echo $form->field($model, 'status')->dropDownList(User::STATUSES; //пользователь не может себя выключить ?>
+    <? /**echo $form->field($model, 'status')->dropDownList(User::STATUSES; //пользователь не может себя выключить */ ?>
 
 
     <div class="form-group">
