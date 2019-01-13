@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
 
     <p>
-        <? /*echo Html::a('Create Project Model', ['create'], ['class' => 'btn btn-success']); */?>
+        <?php /*echo Html::a('Create Project Model', ['create'], ['class' => 'btn btn-success']); */?>
     </p>
 
     <?= GridView::widget([
