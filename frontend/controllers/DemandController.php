@@ -71,15 +71,18 @@ class DemandController extends Controller
     }*/
     public function actionIndex()
     {
-        $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$searchModel = new ProjectSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         /* @var $query ProjectQuery */
-        $query = $dataProvider->query;
-        $query->byUser(Yii::$app->user->id);
-        return $this->render('index', [
+        //$query = $dataProvider->query;
+        //$query->byUser(Yii::$app->user->id);
+        return $this->render('index'
+        /*,
+        [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+        ]*/
+        );
     }
 
     /**
