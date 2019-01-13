@@ -25,7 +25,7 @@ use common\models\User;
         ],
         'options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <? /*echo $form->field($model, 'status')->textInput() */ ?>
+    <? /**echo $form->field($model, 'status')->textInput() */ ?>
 
 
 
@@ -36,7 +36,7 @@ use common\models\User;
     <br><br>
 
     <?= $form->field($model, 'email') ?>
-    <? /*echo $form->field($model, 'status')->dropDownList(User::STATUSES; //пользователь не может себя выключить */ ?>
+    <? /**echo $form->field($model, 'status')->dropDownList(User::STATUSES; //пользователь не может себя выключить */ ?>
 
 
     <div class="form-group">
