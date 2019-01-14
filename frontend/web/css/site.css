@@ -8,10 +8,27 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .wrap > .container {
     padding: 70px 15px 20px;
+    max-width: 60%;
+}
+
+.wrap > .left_panel {
+    height: 100%;
+    width: 20%;
+    padding: 70px 15px 20px;
+    background-color: red;
+}
+
+.wrap > .right_panel {
+    height: 100%;
+    width: 20%;
+    padding: 70px 15px 20px;
+    background-color: blue;
 }
 
 .footer {
