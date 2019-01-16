@@ -3,15 +3,46 @@ body {
     height: 100%;
 }
 
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .wrap > .container {
     padding: 70px 15px 20px;
+    max-width: 60%;
+}
+
+.wrap > .container_my {
+    padding: 70px 15px 20px;
+    margin: 0 auto;
+    max-width: 98%;
+    min-width: 98%;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap > .left_panel {
+    height: 100%;
+    width: 20%;
+    padding: 70px 15px 20px;
+    background-color: red;
+}
+
+.wrap > .right_panel {
+    height: 100%;
+    width: 20%;
+    padding: 70px 15px 20px;
+    background-color: blue;
 }
 
 .footer {

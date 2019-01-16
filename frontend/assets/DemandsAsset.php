@@ -14,10 +14,10 @@ class DemandsAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'main.384e8faa742b6ed1102a.css',
+        'main.2aa74023e014dc8a8662.css',
     ];
     public $js = [
-        'bundle.384e8faa742b6ed1102a.js',
+        'bundle.2aa74023e014dc8a8662.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
