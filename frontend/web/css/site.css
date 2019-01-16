@@ -3,6 +3,11 @@ body {
     height: 100%;
 }
 
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -15,6 +20,15 @@ body {
 .wrap > .container {
     padding: 70px 15px 20px;
     max-width: 60%;
+}
+
+.wrap > .container_my {
+    padding: 70px 15px 20px;
+    margin: 0 auto;
+    max-width: 98%;
+    min-width: 98%;
+    display: flex;
+    flex-direction: column;
 }
 
 .wrap > .left_panel {
