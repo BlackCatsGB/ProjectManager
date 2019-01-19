@@ -4,6 +4,7 @@
 
 /* @var $content string */
 
+use frontend\assets\FlexAsset;
 use frontend\assets\MaterializeAsset;
 use yii\helpers\Html;
 
@@ -19,6 +20,7 @@ use macgyer\yii2materializecss\widgets\Alert;
 
 //MaterializeAsset::register($this);
 //AppAsset::register($this);
+FlexAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>

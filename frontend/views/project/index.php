@@ -16,9 +16,9 @@ $this->title = 'Projects';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-model-index row">
-    <div class="left_panel">left_panel</div>
-    <div class="container column">
-        <h1><?= Html::encode($this->title) ?></h1>
+    <div class="left_panel lighten-5">left_panel</div>
+    <div class="container">
+        <h3><?= Html::encode($this->title) ?></h3>
         <?php Pjax::begin(); ?>
         <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
 
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'Stage',
                     'value' => function (\common\models\ProjectModel $model) {
-                        return Html::a($model->fkStage->title, ['dict-project-stages/view', 'id' => $model->fkStage->id]);
+                        return Html::a($model->fkStage->title, ['dict-project-stages2/view', 'id' => $model->fkStage->id]);
                     },
                     'format' => 'html',
                 ],
