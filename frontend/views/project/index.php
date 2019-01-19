@@ -1,10 +1,12 @@
 <?php
 
 //use Yii;
-use yii\helpers\Html;
-use yii\grid\GridView;
+//use yii\helpers\Html;
+//use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\ProjectModel;
+use macgyer\yii2materializecss\widgets\grid\GridView;
+use macgyer\yii2materializecss\lib\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProjectSearch */
@@ -15,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-model-index row">
     <div class="left_panel">left_panel</div>
-    <div class="container">
+    <div class="container column">
         <h1><?= Html::encode($this->title) ?></h1>
         <?php Pjax::begin(); ?>
         <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>

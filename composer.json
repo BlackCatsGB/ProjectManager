@@ -25,7 +25,9 @@
         "la-haute-societe/yii2-save-relations-behavior": "*",
         "unclead/yii2-multiple-input": "~2.0",
         "yii2mod/yii2-comments": "*",
-        "tmukherjee13/yii2-reverse-migration": "*"
+        "tmukherjee13/yii2-reverse-migration": "*",
+        "macgyer/yii2-materializecss": "*",
+        "fxp/composer-asset-plugin": "~1.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

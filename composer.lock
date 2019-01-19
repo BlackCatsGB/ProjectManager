@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8175a22727e777cfd6571f792c1f650b",
+    "content-hash": "0f50ef6c4cbe2e1d256975877302ce47",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -165,6 +165,22 @@
             ]
         },
         {
+            "name": "bower-asset/materialize",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dogfalo/materialize.git",
+                "reference": "80e8ed370487aaf1e2185b028f7deda40da94eb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dogfalo/materialize/zipball/80e8ed370487aaf1e2185b028f7deda40da94eb9",
+                "reference": "80e8ed370487aaf1e2185b028f7deda40da94eb9",
+                "shasum": null
+            },
+            "type": "bower-asset"
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -185,7 +201,7 @@
             "version": "1.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:vitalets/x-editable.git",
+                "url": "https://github.com/vitalets/x-editable.git",
                 "reference": "f32802f48a33b8a7ec9cca32eec4ca844b7d39b2"
             },
             "dist": {
@@ -807,6 +823,65 @@
             "time": "2016-10-24T15:52:54+00:00"
         },
         {
+            "name": "fxp/composer-asset-plugin",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fxpio/composer-asset-plugin.git",
+                "reference": "0d07328eef6e6f3753aa835fd2faef7fed1717bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fxpio/composer-asset-plugin/zipball/0d07328eef6e6f3753aa835fd2faef7fed1717bf",
+                "reference": "0d07328eef6e6f3753aa835fd2faef7fed1717bf",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "composer/composer": "^1.6.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Fxp\\Composer\\AssetPlugin\\FxpAssetPlugin",
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fxp\\Composer\\AssetPlugin\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Pluchino",
+                    "email": "francois.pluchino@gmail.com"
+                }
+            ],
+            "description": "NPM/Bower Dependency Manager for Composer",
+            "homepage": "https://github.com/fxpio/composer-asset-plugin",
+            "keywords": [
+                "asset",
+                "bower",
+                "composer",
+                "dependency manager",
+                "nodejs",
+                "npm",
+                "package"
+            ],
+            "time": "2018-07-02T11:37:17+00:00"
+        },
+        {
             "name": "guzzlehttp/psr7",
             "version": "1.4.2",
             "source": {
@@ -978,6 +1053,52 @@
                 "yii2"
             ],
             "time": "2018-09-11T09:20:07+00:00"
+        },
+        {
+            "name": "macgyer/yii2-materializecss",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MacGyer/yii2-materializecss.git",
+                "reference": "3fb85450e72ad0458c60e7f46a9a8e42989e90af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MacGyer/yii2-materializecss/zipball/3fb85450e72ad0458c60e7f46a9a8e42989e90af",
+                "reference": "3fb85450e72ad0458c60e7f46a9a8e42989e90af",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/materialize": "1.0.0",
+                "php": ">=5.6.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "macgyer\\yii2materializecss\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Erdmann",
+                    "homepage": "https://www.matero.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Materialize CSS implementation for Yii2",
+            "homepage": "http://macgyer.github.io/yii2-materializecss",
+            "keywords": [
+                "material design",
+                "materialize",
+                "widgets",
+                "yii2"
+            ],
+            "time": "2018-11-16T17:13:57+00:00"
         },
         {
             "name": "mohorev/yii2-upload-behavior",
