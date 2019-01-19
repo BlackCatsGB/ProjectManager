@@ -1,7 +1,9 @@
 <?php
 
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\ProjectUserModel;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProjectModel */
@@ -20,7 +22,6 @@ use yii\widgets\ActiveForm;
 
     <?php
     if (!$model->isNewRecord) {
-
         echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
             'id' => 'project-users-widget',
             'max' => 6,

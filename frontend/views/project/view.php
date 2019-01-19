@@ -31,10 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'title',
             'description:ntext',
+            ['attribute' => 'fkStage.title', 'label' => 'Stage',],
             ['attribute' => 'createdBy.username', 'label' => 'Creator',], //обращаемся к результату выполнения  метода getCreatedBy(), но через точку
             ['attribute' => 'updatedBy.username', 'label' => 'Updater',],
             'created_at:datetime',
             'updated_at:datetime',
+
         ],
     ]) ?>
 
