@@ -23,6 +23,7 @@ use yii\db\ActiveRecord;
  * @property int $updated_by
  * @property int $created_at
  * @property int $updated_at
+ * @property DictProjectStages $fk_stage
  *
  * @property User $createdBy
  * @property User $updatedBy
@@ -124,6 +125,11 @@ class ProjectModel extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
+    public function getFkStage()
+    {
+        return $this->hasOne(DictProjectStages::className(), ['id' => 'fk_stage']);
+    }
+
     /**
      * @return ProjectUserQuery|ActiveRecord
      */
@@ -159,5 +165,8 @@ class ProjectModel extends \yii\db\ActiveRecord
     {
         return $this->getProjectUsers()->select('role')->indexBy('user_id')->column();
     }
+
+
+
 
 }

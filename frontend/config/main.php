@@ -59,7 +59,7 @@ return [
                     'controller' => ['api/user', 'api/project'],
                 ],
                 '<controller:[\w-]+>/<id:\d+>' => '<controller>/view',//контроллер теперь понимает путь task/123 и работает как с task/view?id=12
-                '<controller>s' => '<controller>/index',//контроллер теперь понимает путь tasks и работает как с task/index
+                '<controller>' => '<controller>/index',//контроллер теперь понимает путь tasks и работает как с task/index
             ],
         ],
     ],

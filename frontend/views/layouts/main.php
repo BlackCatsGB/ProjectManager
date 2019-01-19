@@ -42,9 +42,10 @@ AppAsset::register($this);
     } else {
         $menuItems = [
             //['label' => 'Users', 'url' => ['/users']],
-            ['label' => 'Demands', 'url' => ['/demands']],
-            ['label' => 'Projects', 'url' => ['/projects']],
-            ['label' => 'Tasks', 'url' => ['/tasks']],
+            ['label' => 'Test', 'url' => ['/dict-project-stages']],
+            ['label' => 'Demands', 'url' => ['/demand']],
+            ['label' => 'Projects', 'url' => ['/project']],
+            ['label' => 'Tasks', 'url' => ['/task']],
             ['label' => 'Profile', 'url' => ['/user/profile']],
         ];
         $menuItems[] = '<li>'

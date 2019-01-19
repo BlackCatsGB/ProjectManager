@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\User */
+/* @var $model common\models\DictProjectStages */
 
-$this->title = 'Create User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = 'Create project stage';
+$this->params['breadcrumbs'][] = ['label' => 'Project stages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-create container">
+<div class="dict-project-stages-create container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

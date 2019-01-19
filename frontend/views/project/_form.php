@@ -16,13 +16,50 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    <?= $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES) ?>
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    <?
+    if (!$model->isNewRecord) {
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+        echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
+            //https://github.com/unclead/yii2-multiple-input
+            'id' => 'project-users-widget',
+            'max' => 6,
+            'min' => 0,
+            'allowEmptyList' => true,
+            'enableGuessTitle' => true,
+            'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+            'columns' => [
+                /**[
+                 * 'name' => 'user_name',
+                 * 'type' => \unclead\multipleinput\MultipleInputColumn::TYPE_STATIC,
+                 * 'value' => function ($data) {
+                 * return $data ? Html::a($data->user->username, ['user/view', 'id' => $data->user_id]) : '';
+                 * }
+                 * ],*/
+                [
+                    'name' => 'project_id',
+                    'type' => 'hiddenInput',
+                    'defaultValue' => $model->id,
+                ],
+                [
+                    'name' => 'user_id',
+                    'type' => 'dropDownList',
+                    'title' => 'Username',
+                    'items' => $model->getUsers(),
+                ],
+                [
+                    'name' => 'role',
+                    'type' => 'dropDownList',
+                    'title' => 'Role',
+                    'items' => ProjectUserModel::ROLES,
+                ],
+            ],
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+        ]);
+    }
+
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
