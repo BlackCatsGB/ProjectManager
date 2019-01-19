@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = 'Profile: ' . $model->username;
 $this->params['breadcrumbs'][] = 'Profile';
 ?>
-<div class="user-update">
+<div class="user-update container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

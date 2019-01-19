@@ -10,19 +10,19 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="project-model-view">
+<div class="project-model-view container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <? //echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']); ?>
-        <? /*echo Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']); ?>
+        <? echo Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]);*/ ?>
+        ]); ?>
     </p>
 
     <?= DetailView::widget([
@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <?php echo \yii2mod\comments\widgets\Comment::widget([
+    <?php /*echo \yii2mod\comments\widgets\Comment::widget([
         'model' => $model,
-    ]); ?>
+    ]);*/ ?>
 
 </div>

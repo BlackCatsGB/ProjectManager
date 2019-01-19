@@ -25,7 +25,6 @@ class ProjectUserModel extends \yii\db\ActiveRecord
         self::ROLE_MANAGER => 'manager',
         self::ROLE_DEVELOPER => 'developer',
         self::ROLE_TESTER => 'tester',
-
     ];
 
     /**

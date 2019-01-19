@@ -2,23 +2,18 @@
 
 namespace frontend\controllers;
 
-use common\models\query\ProjectQuery;
 use Yii;
-use common\models\ProjectModel;
-use common\models\ProjectSearch;
-use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
+use common\models\DictProjectStages;
+use common\models\DictProjectStagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProjectController implements the CRUD actions for ProjectModel model.
+ * DictProjectStagesController implements the CRUD actions for dictprojectstages model.
  */
-class ProjectController extends Controller
+class DictProjectStagesController extends Controller
 {
-    const RELATION_PROJECT_USERS = 'projectUsers';
-
     /**
      * {@inheritdoc}
      */
@@ -31,60 +26,17 @@ class ProjectController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'update', 'view', 'create', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
         ];
     }
 
     /**
-     * Lists all ProjectModel models.
+     * Lists all dictprojectstages models.
      * @return mixed
      */
-    /*public function actionIndex()
-    {
-        $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }*/
-    /*public function actionMy()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => ProjectModel::find()->joinWith(ProjectModel::RELATION_PROJECT_USERS)->where(['user_id' => Yii::$app->user->id]),
-        ]);
-
-        return $this->render('index', [
-            //'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }*/
     public function actionIndex()
     {
-        //$searchModel = new ProjectSearch();
-        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        /* @var $query ProjectQuery */
-        //$query = $dataProvider->query;
-        //$query->byUser(Yii::$app->user->id);
-        /*return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);*/
-
-        $searchModel = new ProjectSearch();
+        $searchModel = new DictProjectStagesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize = 10; //пагинация по 10 записей на странице
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -93,7 +45,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Displays a single ProjectModel model.
+     * Displays a single dictprojectstages model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -106,13 +58,13 @@ class ProjectController extends Controller
     }
 
     /**
-     * Creates a new ProjectModel model.
+     * Creates a new dictprojectstages model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ProjectModel();
+        $model = new DictProjectStages();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -124,7 +76,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Updates an existing ProjectModel model.
+     * Updates an existing dictprojectstages model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -144,7 +96,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Deletes an existing ProjectModel model.
+     * Deletes an existing dictprojectstages model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -158,15 +110,15 @@ class ProjectController extends Controller
     }
 
     /**
-     * Finds the ProjectModel model based on its primary key value.
+     * Finds the dictprojectstages model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ProjectModel the loaded model
+     * @return DictProjectStages the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ProjectModel::findOne($id)) !== null) {
+        if (($model = DictProjectStages::findOne($id)) !== null) {
             return $model;
         }
 

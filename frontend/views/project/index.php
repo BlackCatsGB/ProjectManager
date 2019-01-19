@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
 
         <p>
-            <? /*echo Html::a('Create Project Model', ['create'], ['class' => 'btn btn-success']); */ ?>
+            <?= Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
         </p>
 
         <?= GridView::widget([
@@ -63,8 +63,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'created_at:datetime',
                 'updated_at:datetime',
+                [
+                    'attribute' => 'Stage',
+                    'value' => function (\common\models\ProjectModel $model) {
+                        return Html::a($model->fkStage->title, ['dict-project-stages/view', 'id' => $model->fkStage->id]);
+                    },
+                    'format' => 'html',
+                ],
                 //пользователи фронтэнда не могут править проекты
-                //['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
         <?php Pjax::end(); ?>
