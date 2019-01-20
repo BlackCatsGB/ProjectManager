@@ -6,6 +6,7 @@ body {
 .row{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .wrap {
@@ -42,6 +43,13 @@ body {
     height: 100%;
     width: 20%;
     padding: 70px 15px 20px;
+    background-color: blue;
+}
+
+.wrap > .center_panel {
+    height: 100%;
+    width: 60%;
+    padding: 70px 15px 20px 15px;
     background-color: blue;
 }
 

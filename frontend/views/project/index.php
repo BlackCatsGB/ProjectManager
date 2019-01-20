@@ -1,10 +1,12 @@
 <?php
 
 //use Yii;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ListView;
 use yii\widgets\Pjax;
-use common\models\ProjectModel;
+use common\models\ProjectsOnStages;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProjectSearch */
@@ -14,8 +16,44 @@ $this->title = 'Projects';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-model-index row">
-    <div class="left_panel">left_panel</div>
-    <div class="container">
+    <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
+    <div class="left_panel">
+        <?php Pjax::begin();
+        /*$dataProviderProjectStages = new ActiveDataProvider([
+            'query' => ProjectModel::find()
+                ->select(['count(*) AS cnt', 'fk_stage'])
+                //->where('active=1')
+                ->orderBy('fk_stage')
+                ->groupBy('fk_stage')
+            //->all()
+            ,
+            'pagination' => [
+                'pageSize' => 20, // 20 записей на страницу
+            ],
+        ]);*/
+        /*$sqldataProviderProjectStages = new SQLDataProvider([
+            'sql' => 'SELECT count(*) AS cnt, `fk_stage`, dict_project_stages.title as title FROM `project`,`dict_project_stages` WHERE project.fk_stage=dict_project_stages.id GROUP BY `fk_stage`',
+        ]);*/
+
+        $dataProviderProjectStages = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find(),
+        ]);
+        //var_dump(ProjectsOnStages::find()->createCommand());
+
+        ?>
+        <?= ListView::widget([
+            'dataProvider' => $dataProviderProjectStages,
+            'options' => [
+                'tag' => 'ul',
+                'class' => 'list-group',
+            ],
+            'itemView' => '_list_of_stages',
+            'summary' => false,
+        ]); ?>
+        <?php Pjax::end(); ?>
+    </div>
+    <?php /////////////////////////////////////////CENTER_PANEL/////////////////////////////////////////////////////////; ?>
+    <div class="center_panel">
         <h1><?= Html::encode($this->title) ?></h1>
         <?php Pjax::begin(); ?>
         <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
@@ -76,5 +114,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
         <?php Pjax::end(); ?>
     </div>
+    <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="right_panel">right_panel</div>
 </div>
