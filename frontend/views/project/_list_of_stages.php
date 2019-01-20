@@ -5,11 +5,9 @@ use yii\helpers\HtmlPurifier;
 
 ?>
 
-<li class="list-group-item d-flex justify-content-between align-items-center">
+<a href='#' class="list-group-item list-group-item-action">
     <?= Html::encode($model->title) ?>
     <span class="badge badge-primary badge-pill">
-        <?php
-        echo $model->cnt;
-        ?>
+        <?php echo $model->cnt;?>
     </span>
-</li>
+</a>

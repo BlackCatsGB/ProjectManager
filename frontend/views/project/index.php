@@ -18,28 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="project-model-index row">
     <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="left_panel">
+        <h4>Stages:</h4>
         <?php Pjax::begin();
-        /*$dataProviderProjectStages = new ActiveDataProvider([
-            'query' => ProjectModel::find()
-                ->select(['count(*) AS cnt', 'fk_stage'])
-                //->where('active=1')
-                ->orderBy('fk_stage')
-                ->groupBy('fk_stage')
-            //->all()
-            ,
-            'pagination' => [
-                'pageSize' => 20, // 20 записей на страницу
-            ],
-        ]);*/
-        /*$sqldataProviderProjectStages = new SQLDataProvider([
-            'sql' => 'SELECT count(*) AS cnt, `fk_stage`, dict_project_stages.title as title FROM `project`,`dict_project_stages` WHERE project.fk_stage=dict_project_stages.id GROUP BY `fk_stage`',
-        ]);*/
-
         $dataProviderProjectStages = new ActiveDataProvider([
             'query' => ProjectsOnStages::find(),
         ]);
-        //var_dump(ProjectsOnStages::find()->createCommand());
-
         ?>
         <?= ListView::widget([
             'dataProvider' => $dataProviderProjectStages,

@@ -32,25 +32,22 @@ body {
     flex-direction: column;
 }
 
-.wrap > .left_panel {
+.left_panel {
     height: 100%;
-    width: 20%;
-    padding: 70px 15px 20px;
-    background-color: red;
+    width: 19%;
+    padding: 0px 20px 20px 20px;
 }
 
-.wrap > .right_panel {
+.right_panel {
     height: 100%;
-    width: 20%;
+    width: 19%;
     padding: 70px 15px 20px;
-    background-color: blue;
 }
 
-.wrap > .center_panel {
+.center_panel {
     height: 100%;
-    width: 60%;
-    padding: 70px 15px 20px 15px;
-    background-color: blue;
+    width: 62%;
+    padding: 0px 15px 20px 15px;
 }
 
 .footer {

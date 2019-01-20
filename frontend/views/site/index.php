@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Task manager App';
+$this->title = 'Project manager ++';
 ?>
 
 <? //echo \common\modules\chat\widgets\Chat::widget();//остатки чата по технологии comet ?>
