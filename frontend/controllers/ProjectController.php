@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+
 /**
  * ProjectController implements the CRUD actions for ProjectModel model.
  */
@@ -86,8 +87,7 @@ class ProjectController extends Controller
         if ($fk_stage == -1) {
             $searchModel = new ProjectSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        }
-        //если стоит фильтр по этапу проекта, то отфильтровать список
+        } //если стоит фильтр по этапу проекта, то отфильтровать список
         else {
             $dataProvider = new ActiveDataProvider([
                 'query' => ProjectModel::find()
@@ -101,10 +101,18 @@ class ProjectController extends Controller
             'query' => ProjectsOnStages::find(),
         ]);
 
+        //провайдер для получения имени активного этапа по номеру
+        $dataProviderStageTitle = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find()->where('fk_stage = ' . $fk_stage),
+        ]);
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'dataProviderProjectStages'=>$dataProviderProjectStages,
+            'dataProviderProjectStages' => $dataProviderProjectStages,
+            'dataProviderStageTitle' => $dataProviderStageTitle,
+            'fk_stage' => $fk_stage,
         ]);
     }
 

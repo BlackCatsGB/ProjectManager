@@ -12,35 +12,56 @@ use common\models\ProjectsOnStages;
 /* @var $searchModel common\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $dataProviderProjectStages yii\data\ActiveDataProvider */
+/* @var $dataProviderStageTitle yii\data\ActiveDataProvider */
+/* @var $fk_stage int */
 
 $this->title = 'Projects';
-$this->params['breadcrumbs'][] = $this->title;
+
+if ($fk_stage == -1) $this->params['breadcrumbs'][] = $this->title;
+else {
+    $this->params['breadcrumbs'][] = [
+        'label' => $this->title,
+        'url' => ''
+    ];
+    if ($fk_stage != -1) $this->params['breadcrumbs'][] = $dataProviderStageTitle->getModels()[0]['title'];
+}
 ?>
 <div class="project-model-index row">
     <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="left_panel">
+        <h4>To do:</h4>
+        <a href='?fk_stage=-1' class="list-group-item list-group-item-action">
+            All
+        </a>
         <h4>Stages:</h4>
         <?= ListView::widget([
             'dataProvider' => $dataProviderProjectStages,
             'options' => [
-                'tag' => 'ul',
+                'tag' => 'div',
                 'class' => 'list-group',
             ],
             'itemView' => '_list_of_stages',
             'summary' => false,
         ]); ?>
-        <?php ;//Pjax::end(); ?>
+        <a href='?fk_stage=-1' class="list-group-item list-group-item-action">
+            All
+        </a>
     </div>
     <?php /////////////////////////////////////////CENTER_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="center_panel">
-        <h1><?= Html::encode($this->title) ?></h1>
+        <div class="space_between">
+            <div>
+                <h1><?= Html::encode($this->title) ?></h1>
+            </div>
+            <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
+            <div>
+                <h1><p>
+                        <?php //echo Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
+                    </p>
+                </h1>
+            </div>
+        </div>
         <?php Pjax::begin(); ?>
-        <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
-
-        <p>
-            <?= Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
-        </p>
-
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -94,5 +115,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php Pjax::end(); ?>
     </div>
     <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="right_panel">right_panel</div>
+    <div class="right_panel">
+        <h4>Actions:</h4>
+
+            <p>
+                <?= Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
+            </p>
+    </div>
 </div>

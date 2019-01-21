@@ -41,13 +41,23 @@ body {
 .right_panel {
     height: 100%;
     width: 19%;
-    padding: 70px 15px 20px;
+    padding: 0px 20px 20px 20px;
 }
 
 .center_panel {
     height: 100%;
     width: 62%;
     padding: 0px 15px 20px 15px;
+}
+
+.space_around{
+    display: flex;
+    justify-content: space-around;
+}
+
+.space_between{
+    display: flex;
+    justify-content: space-between;
 }
 
 .footer {
@@ -157,4 +167,9 @@ a.desc:after {
 
 .breadcrumb{
     background-color: #fafafa!important;
+}
+
+h1 {
+    padding-top: 0px;
+    margin-top: 5px;
 }
