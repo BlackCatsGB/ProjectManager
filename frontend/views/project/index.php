@@ -11,6 +11,7 @@ use common\models\ProjectsOnStages;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProviderProjectStages yii\data\ActiveDataProvider */
 
 $this->title = 'Projects';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,11 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="left_panel">
         <h4>Stages:</h4>
-        <?php Pjax::begin();
-        $dataProviderProjectStages = new ActiveDataProvider([
-            'query' => ProjectsOnStages::find(),
-        ]);
-        ?>
         <?= ListView::widget([
             'dataProvider' => $dataProviderProjectStages,
             'options' => [
@@ -33,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'itemView' => '_list_of_stages',
             'summary' => false,
         ]); ?>
-        <?php Pjax::end(); ?>
+        <?php ;//Pjax::end(); ?>
     </div>
     <?php /////////////////////////////////////////CENTER_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="center_panel">
