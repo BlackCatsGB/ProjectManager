@@ -1,9 +1,9 @@
 <?php
 
+use common\models\ProjectUserModel;
 use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\ProjectUserModel;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProjectModel */

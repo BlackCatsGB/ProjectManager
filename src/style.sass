@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700|Give+You+Glory');
+$content_width: 1270px
+
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+.home
+    background: rgba(252, 251, 249, 0.68)
+    color: #4d4f56
+    display: flex
+    flex-direction: column
+    height: 100%
+
+.container
+    max-width: $content_width
+    margin: 0 auto
+
+a
+    text-decoration: none
+
+hr
+    margin-top: 1rem
+    margin-bottom: 1rem
+    border: 0
+    border-top: 1px solid #eaebeb
+
+.white_button
+    min-width: 100%
+    margin-top: 10px
+    margin-bottom: 10px
+    background-color: #ffffff
+    border: 1px solid #eaeaea
+    color: #4a4a4a
+    cursor: pointer
+    padding: 5px
+    &:hover
+        border: 1px solid #f16d7f
+        color: #f16d7f
+        transition: 1s ease
+    &:active
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
