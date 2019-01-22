@@ -83,9 +83,9 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
         ]);*/
 
+        $searchModel = new ProjectSearch();
         //если фильтров нет
         if ($fk_stage == -1) {
-            $searchModel = new ProjectSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         } //если стоит фильтр по этапу проекта, то отфильтровать список
         else {
