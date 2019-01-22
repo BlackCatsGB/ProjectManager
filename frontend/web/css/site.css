@@ -6,6 +6,7 @@ body {
 .row{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .wrap {
@@ -31,18 +32,32 @@ body {
     flex-direction: column;
 }
 
-.wrap > .left_panel {
+.left_panel {
     height: 100%;
-    width: 20%;
-    padding: 70px 15px 20px;
-    background-color: red;
+    width: 19%;
+    padding: 0px 20px 20px 20px;
 }
 
-.wrap > .right_panel {
+.right_panel {
     height: 100%;
-    width: 20%;
-    padding: 70px 15px 20px;
-    background-color: blue;
+    width: 19%;
+    padding: 0px 20px 20px 20px;
+}
+
+.center_panel {
+    height: 100%;
+    width: 62%;
+    padding: 0px 15px 20px 15px;
+}
+
+.space_around{
+    display: flex;
+    justify-content: space-around;
+}
+
+.space_between{
+    display: flex;
+    justify-content: space-between;
 }
 
 .footer {
@@ -152,4 +167,9 @@ a.desc:after {
 
 .breadcrumb{
     background-color: #fafafa!important;
+}
+
+h1 {
+    padding-top: 0px;
+    margin-top: 5px;
 }
