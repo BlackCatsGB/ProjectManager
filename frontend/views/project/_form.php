@@ -20,7 +20,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES) ?>
 
+    <?= $form->field($model, 'fk_customer')->dropDownList($model->getUsers()) ?>
+
+    <?= $form->field($model, 'fk_project_manager')->dropDownList($model->getUsers()) ?>
+
+    <?= $form->field($model, 'fk_analyst')->dropDownList($model->getUsers()) ?>
+
+    <?= $form->field($model, 'fk_inspector')->dropDownList($model->getUsers()) ?>
+
     <?php
+    //если вызвано обновление записи о проекте
     if (!$model->isNewRecord) {
         echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
             'id' => 'project-users-widget',

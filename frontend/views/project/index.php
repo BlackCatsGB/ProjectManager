@@ -69,13 +69,20 @@ else {
                 //['class' => 'yii\grid\SerialColumn'],
                 //'id',
                 [
+                    'attribute' => 'id',
+                    'value' => function (\common\models\ProjectModel $model) {
+                        return Html::a($model->id, ['project/view', 'id' => $model->id]);
+                    },
+                    'format' => 'html',
+                ],
+                [
                     'attribute' => 'title',
                     'value' => function (\common\models\ProjectModel $model) {
                         return Html::a($model->title, ['project/view', 'id' => $model->id]);
                     },
                     'format' => 'html',
                 ],
-                [
+                /*[
                     'attribute' => \common\models\ProjectModel::RELATION_PROJECT_USERS . '.role',
                     'filter' => \common\models\ProjectUserModel::ROLES,
                     'value' => function (\common\models\ProjectModel $model) {
@@ -83,9 +90,37 @@ else {
                         return join(', ', Yii::$app->projectService->getRoles($model, Yii::$app->user->identity));
                     },
                     'format' => 'html',
-                ],
-                'description:ntext',
+                ],*/
+                /*'description:ntext',*/
                 [
+                    'attribute' => 'fk_customer',
+                    'value' => function (\common\models\ProjectModel $model) {
+                        return Html::a($model->fkCustomer->username, ['user/view', 'id' => $model->fkCustomer->id]);
+                    },
+                    'format' => 'html',
+                ],
+                [
+                    'attribute' => 'fk_project_manager',
+                    'value' => function (\common\models\ProjectModel $model) {
+                        return Html::a($model->fkProjectManager->username, ['user/view', 'id' => $model->fkProjectManager->id]);
+                    },
+                    'format' => 'html',
+                ],
+                [
+                    'attribute' => 'fk_analyst',
+                    'value' => function (\common\models\ProjectModel $model) {
+                        return Html::a($model->fkAnalyst->username, ['user/view', 'id' => $model->fkAnalyst->id]);
+                    },
+                    'format' => 'html',
+                ],
+                [
+                    'attribute' => 'fk_inspector',
+                    'value' => function (\common\models\ProjectModel $model) {
+                        return Html::a($model->fkInspector->username, ['user/view', 'id' => $model->fkInspector->id]);
+                    },
+                    'format' => 'html',
+                ],
+                /*[
                     'attribute' => 'created_by',
                     'value' => function (\common\models\ProjectModel $model) {
                         return Html::a($model->createdBy->username, ['user/view', 'id' => $model->createdBy->id]);
@@ -98,9 +133,9 @@ else {
                         return Html::a($model->updatedBy->username, ['user/view', 'id' => $model->updatedBy->id]);
                     },
                     'format' => 'html',
-                ],
-                'created_at:datetime',
-                'updated_at:datetime',
+                ],*/
+                /*'created_at:datetime',
+                'updated_at:datetime',*/
                 [
                     'attribute' => 'Stage',
                     'value' => function (\common\models\ProjectModel $model) {

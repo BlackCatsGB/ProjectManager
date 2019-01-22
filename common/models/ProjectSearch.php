@@ -18,7 +18,7 @@ class ProjectSearch extends ProjectModel
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by', 'created_at', 'updated_at', 'active'], 'integer'],
+            [['id', 'created_by', 'updated_by', 'created_at', 'updated_at', 'active', 'fk_customer', 'fk_project_manager', 'fk_analyst', 'fk_inspector'], 'integer'],
             [['title', 'description'], 'safe'],
         ];
     }
@@ -65,6 +65,10 @@ class ProjectSearch extends ProjectModel
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'fk_customer' => $this->fkCustomer,
+            'fk_project_manager' => $this->fkProjectManager,
+            'fk_analyst' => $this->fkAnalyst,
+            'fk_inspector' => $this->fkInspector,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
