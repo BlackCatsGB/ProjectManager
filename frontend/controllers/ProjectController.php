@@ -2,15 +2,16 @@
 
 namespace frontend\controllers;
 
-use common\models\query\ProjectQuery;
 use Yii;
+use common\models\ProjectsOnStages;
+use common\models\query\ProjectQuery;
 use common\models\ProjectModel;
 use common\models\ProjectSearch;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ProjectController implements the CRUD actions for ProjectModel model.
@@ -70,7 +71,7 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }*/
-    public function actionIndex()
+    public function actionIndex($fk_stage = -1)
     {
         //$searchModel = new ProjectSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -83,12 +84,35 @@ class ProjectController extends Controller
         ]);*/
 
         $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize = 10; //пагинация по 10 записей на странице
+        //если фильтров нет
+        if ($fk_stage == -1) {
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        } //если стоит фильтр по этапу проекта, то отфильтровать список
+        else {
+            $dataProvider = new ActiveDataProvider([
+                'query' => ProjectModel::find()
+                    ->where('fk_stage=' . $fk_stage)
+            ]);
+        }
+        $dataProvider->pagination->pageSize = 12; //пагинация по 12 записей на странице
+
+        //провайдер для вывода перечня фильтров
+        $dataProviderProjectStages = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find(),
+        ]);
+
+        //провайдер для получения имени активного этапа по номеру
+        $dataProviderStageTitle = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find()->where('fk_stage = ' . $fk_stage),
+        ]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dataProviderProjectStages' => $dataProviderProjectStages,
+            'dataProviderStageTitle' => $dataProviderStageTitle,
+            'fk_stage' => $fk_stage,
         ]);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+use common\models\ProjectUserModel;
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,11 +20,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES) ?>
 
-    <?
+    <?php
     if (!$model->isNewRecord) {
-
         echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
-            //https://github.com/unclead/yii2-multiple-input
             'id' => 'project-users-widget',
             'max' => 6,
             'min' => 0,
