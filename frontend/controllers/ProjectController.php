@@ -94,7 +94,7 @@ class ProjectController extends Controller
                     ->where('fk_stage=' . $fk_stage)
             ]);
         }
-        $dataProvider->pagination->pageSize = 10; //пагинация по 10 записей на странице
+        $dataProvider->pagination->pageSize = 12; //пагинация по 12 записей на странице
 
         //провайдер для вывода перечня фильтров
         $dataProviderProjectStages = new ActiveDataProvider([

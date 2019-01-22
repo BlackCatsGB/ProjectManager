@@ -21,9 +21,9 @@ if ($fk_stage == -1) $this->params['breadcrumbs'][] = $this->title;
 else {
     $this->params['breadcrumbs'][] = [
         'label' => $this->title,
-        'url' => ''
+        'url' => '/project'
     ];
-    if ($fk_stage != -1) $this->params['breadcrumbs'][] = $dataProviderStageTitle->getModels()[0]['title'];
+    $this->params['breadcrumbs'][] = $dataProviderStageTitle->getModels()[0]['title'];
 }
 ?>
 <div class="project-model-index row">
@@ -117,9 +117,8 @@ else {
     <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="right_panel">
         <h4>Actions:</h4>
-
-            <p>
-                <?= Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
-            </p>
+        <p>
+            <?= Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
+        </p>
     </div>
 </div>
