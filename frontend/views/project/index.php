@@ -153,7 +153,11 @@ else {
     <div class="right_panel">
         <h4>Actions:</h4>
         <p>
-            <?= Html::a('Create project', ['create'], ['class' => 'btn btn-success']); ?>
+            <?php
+            if (Yii::$app->user->can('createProject')) {
+                echo Html::a('Create project', ['create'], ['class' => 'btn btn-success']);
+            }
+            ?>
         </p>
     </div>
 </div>

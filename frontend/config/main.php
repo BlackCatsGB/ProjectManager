@@ -62,6 +62,9 @@ return [
                 '<controller>' => '<controller>/index',//контроллер теперь понимает путь tasks и работает как с task/index
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ]
     ],
     'params' => $params,
 ];

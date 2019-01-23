@@ -17,6 +17,7 @@ Project manager ++ contains several functions:
 <li>php init</li>
 <li>manually confugure database connection in common/config/main-local.php</li>
 <li>cp common/config/main-local.php <i>archive</i>/main-local.php</li>
+<li>yii migrate --migrationPath=@yii/rbac/migrations/</li>
 </ul>
 <h3>Demands module (ReactJS):</h3>
 <ul>

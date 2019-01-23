@@ -41,6 +41,33 @@ class ProjectController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    /* пример простого использования rbac без правил
+                     *
+                     * [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['managePost'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['viewPost'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['createPost'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['updatePost'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['deletePost'],
+                    ],*/
                 ],
             ],
         ];
@@ -136,15 +163,18 @@ class ProjectController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ProjectModel();
+        if (\Yii::$app->user->can('createProject')) {
+            $model = new ProjectModel();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect('/');
     }
 
     /**
