@@ -54,11 +54,13 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
-        //присвоить зарегистрировавшемуся пользователю роль по умолчанию - 'user'
-        $auth = Yii::$app->authManager;
-        $authorRole = $auth->getRole('user');
-        $auth->assign($authorRole, $user->username);
-
-        return $user->save() ? $user : null;
+        if ($user->save()){
+            //присвоить зарегистрировавшемуся пользователю роль по умолчанию - 'user'
+            $auth = Yii::$app->authManager;
+            $authorRole = $auth->getRole('user');
+            $auth->assign($authorRole, $user->id);
+            return $user;
+        }
+        else return null;
     }
 }

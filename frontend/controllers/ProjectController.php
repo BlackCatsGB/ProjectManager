@@ -35,39 +35,19 @@ class ProjectController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                    //сначала запрещающие правила
+                    //пример простого использования rbac, если не нужны правила (rules)
+                    /*[
+                        'allow' => false,
+                        'actions' => ['index'],
+                        'roles' => ['manager'],
+                    ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
                         'actions' => ['logout', 'index', 'update', 'view', 'create', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    /* пример простого использования rbac без правил
-                     *
-                     * [
-                        'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['managePost'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['view'],
-                        'roles' => ['viewPost'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['create'],
-                        'roles' => ['createPost'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['update'],
-                        'roles' => ['updatePost'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['delete'],
-                        'roles' => ['deletePost'],
-                    ],*/
                 ],
             ],
         ];
@@ -163,7 +143,7 @@ class ProjectController extends Controller
      */
     public function actionCreate()
     {
-        if (\Yii::$app->user->can('createProject')) {
+        if (\Yii::$app->user->can('crudProject')) {
             $model = new ProjectModel();
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -174,7 +154,7 @@ class ProjectController extends Controller
                 'model' => $model,
             ]);
         }
-        return $this->redirect('/');
+        return $this->redirect('/project');
     }
 
     /**
@@ -186,15 +166,18 @@ class ProjectController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('crudProject')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect('/project');
     }
 
     /**
@@ -206,9 +189,12 @@ class ProjectController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (\Yii::$app->user->can('crudProject')) {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
+        return $this->redirect('/project');
     }
 
     /**

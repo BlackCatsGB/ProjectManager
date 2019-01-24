@@ -154,7 +154,7 @@ else {
         <h4>Actions:</h4>
         <p>
             <?php
-            if (Yii::$app->user->can('createProject')) {
+            if (Yii::$app->user->can('crudProject')) {
                 echo Html::a('Create project', ['create'], ['class' => 'btn btn-success']);
             }
             ?>
