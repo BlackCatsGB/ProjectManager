@@ -38,3 +38,4 @@ phpunit.phar
 /frontend/web/upload
 
 #/!mynotes
+node_modules
