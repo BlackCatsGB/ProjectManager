@@ -32,7 +32,7 @@ class m190120_202319_view_projects_on_stages_view extends Migration
      */
     public function safeDown()
     {
-        $this->execute('DROP VIEW `project_manager`.`projects_on_stages_`;');
+        $this->execute('DROP VIEW `projects_on_stages`');
     }
 
     /*

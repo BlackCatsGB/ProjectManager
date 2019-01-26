@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\ProjectSearch */
+/* @var $model common\models\RBAC\AuthItemPermissionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="project-model-search">
+<div class="auth-item-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -18,23 +18,15 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?= $form->field($model, 'type') ?>
 
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'created_by') ?>
+    <?= $form->field($model, 'rule_name') ?>
 
-    <?= $form->field($model, 'updated_by') ?>
-
-    <?= $form->field($model, 'fk_customer')->dropDownList($model->getUsers()) ?>
-
-    <?= $form->field($model, 'fk_project_manager')->dropDownList($model->getUsers()) ?>
-
-    <?= $form->field($model, 'fk_analyst')->dropDownList($model->getUsers()) ?>
-
-    <?= $form->field($model, 'fk_inspector')->dropDownList($model->getUsers()) ?>
+    <?= $form->field($model, 'data') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
