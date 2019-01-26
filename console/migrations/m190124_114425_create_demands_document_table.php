@@ -14,7 +14,7 @@ class m190124_114425_create_demands_document_table extends Migration
     {
         $this->createTable('demands_document', [
             'id' => $this->primaryKey(),
-            'tile' => $this->string(45)->notNull(),
+            'title' => $this->string(45)->notNull(),
             'pressmark' => $this->string(45),
             'effective_date' => $this->dateTime(),
             'comment' => $this->string(255)

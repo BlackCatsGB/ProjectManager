@@ -14,7 +14,7 @@ class m190124_111818_create_demands_table extends Migration
     {
         $this->createTable('demands', [
             'id' => $this->primaryKey(),
-            'uid' => $this->integer()->unique()->notNull(),
+            'uid' => $this->integer()->notNull(),
             'text' => $this->string(2000)->notNull(),
             'id_version' => $this->integer(),
             'id_parent' => $this->integer()
