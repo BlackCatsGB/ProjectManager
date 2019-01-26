@@ -32,6 +32,7 @@ Project manager ++ contains several functions:
 <li>cd <i>"application directory"</i></li>
 <li>composer install</li>
 <li>yii migrate/add</li>
+<li><b>yii rbac/init<b></li>
 <li>php init</li>
 <li>cp <i>archive</i>/main-local.php common/config/main-local.php</li>
 <li>npm -i</li>

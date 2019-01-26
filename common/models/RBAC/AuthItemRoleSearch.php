@@ -1,16 +1,16 @@
 <?php
 
-namespace common\models;
+namespace common\models\RBAC;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ProjectModel;
+use common\models\RBAC\AuthItem;
 
 /**
- * ProjectSearch represents the model behind the search form of `common\models\ProjectModel`.
+ * AuthItemRoleSearch represents the model behind the search form of `common\models\RBAC\AuthItem`.
  */
-class ProjectSearch extends ProjectModel
+class AuthItemRoleSearch extends AuthItem
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class ProjectSearch extends ProjectModel
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by', 'created_at', 'updated_at', 'active'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['name', 'description', 'rule_name', 'data'], 'safe'],
+            [['type', 'created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProjectSearch extends ProjectModel
      */
     public function search($params)
     {
-        $query = ProjectModel::find();
+        $query = AuthItem::find();
 
         // add conditions that should always apply here
 
@@ -59,16 +59,15 @@ class ProjectSearch extends ProjectModel
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'active' => $this->active,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
+            'type' => 1,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'rule_name', $this->rule_name])
+            ->andFilterWhere(['like', 'data', $this->data]);
 
         return $dataProvider;
     }

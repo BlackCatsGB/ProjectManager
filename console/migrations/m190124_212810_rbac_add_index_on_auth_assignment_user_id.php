@@ -17,7 +17,7 @@ use yii\rbac\DbManager;
  * @author Ivan Buttinoni <ivan.buttinoni@cibi.it>
  * @since 2.0.13
  */
-class m240907_052038_rbac_add_index_on_auth_assignment_user_id extends Migration
+class m190124_212810_rbac_add_index_on_auth_assignment_user_id extends Migration
 {
     public $column = 'user_id';
     public $index = 'auth_assignment_user_id_idx';

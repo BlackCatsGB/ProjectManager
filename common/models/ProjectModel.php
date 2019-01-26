@@ -76,11 +76,10 @@ class ProjectModel extends \yii\db\ActiveRecord
         return [
             [['title', 'description', 'active'], 'required'],
             [['description'], 'string'],
-            [['created_by', 'updated_by', 'created_at', 'updated_at', 'active', 'fk_customer', 'fk_project_manager', 'fk_analyst', 'fk_inspector'], 'integer'],
+            [['created_by', 'updated_by', 'created_at', 'updated_at', 'active'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
-            [['fk_customer'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_customer' => 'id']],
             [['active'], 'boolean'],
         ];
     }
@@ -96,10 +95,6 @@ class ProjectModel extends \yii\db\ActiveRecord
             'description' => 'Description',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
-            'fk_customer' => 'Project customer',
-            'fk_project_manager' => 'Project manager',
-            'fk_analyst' => 'Project analyst',
-            'fk_inspector' => 'Project inspector',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'active' => 'Is active',
@@ -150,34 +145,34 @@ class ProjectModel extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFkCustomer()
+    /*public function getFkCustomer()
     {
         return $this->hasOne(User::className(), ['id' => 'fk_customer']);
-    }
+    }*/
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFkProjectManager()
+    /*public function getFkProjectManager()
     {
         return $this->hasOne(User::className(), ['id' => 'fk_project_manager']);
-    }
+    }*/
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFkAnalyst()
+    /*public function getFkAnalyst()
     {
         return $this->hasOne(User::className(), ['id' => 'fk_analyst']);
-    }
+    }*/
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFkInspector()
+    /*public function getFkInspector()
     {
         return $this->hasOne(User::className(), ['id' => 'fk_inspector']);
-    }
+    }*/
 
     /**
      * @return ProjectUserQuery|ActiveRecord
@@ -204,6 +199,15 @@ class ProjectModel extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return User::find()->select('username')->indexBy('id')->column();
+    }
+
+    /**
+     * Выводит список ролей в проектах
+     * @return array
+     */
+    public function getRoles()
+    {
+        return DictProjectRoles::find()->select('name')->indexBy('id')->column();
     }
 
     /**

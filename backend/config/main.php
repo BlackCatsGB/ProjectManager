@@ -9,11 +9,11 @@ $params = array_merge(
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
+    'name'=>'Project manager ++',
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     //'modules' => [],
     'layout'=>'adminLTE/main.php', //путь до layout ADMIN LTE
-
     'components' => [
         'language' => 'ru_RU',
         'request' => [
