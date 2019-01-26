@@ -1,18 +1,18 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
-use common\models\DictProjectStages;
-use common\models\DictProjectStagesSearch;
+use common\models\RBAC\AuthItem;
+use common\models\RBAC\AuthItemPermissionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DictProjectStagesController implements the CRUD actions for dictprojectstages model.
+ * PermissionController implements the CRUD actions for AuthItem model.
  */
-class DictProjectStagesController extends Controller
+class PermissionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class DictProjectStagesController extends Controller
     }
 
     /**
-     * Lists all dictprojectstages models.
+     * Lists all AuthItem models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DictProjectStagesSearch();
+        $searchModel = new AuthItemPermissionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,8 +45,8 @@ class DictProjectStagesController extends Controller
     }
 
     /**
-     * Displays a single dictprojectstages model.
-     * @param integer $id
+     * Displays a single AuthItem model.
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -58,16 +58,16 @@ class DictProjectStagesController extends Controller
     }
 
     /**
-     * Creates a new dictprojectstages model.
+     * Creates a new AuthItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DictProjectStages();
+        $model = new AuthItem();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->name]);
         }
 
         return $this->render('create', [
@@ -76,9 +76,9 @@ class DictProjectStagesController extends Controller
     }
 
     /**
-     * Updates an existing dictprojectstages model.
+     * Updates an existing AuthItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -87,7 +87,7 @@ class DictProjectStagesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->name]);
         }
 
         return $this->render('update', [
@@ -96,9 +96,9 @@ class DictProjectStagesController extends Controller
     }
 
     /**
-     * Deletes an existing dictprojectstages model.
+     * Deletes an existing AuthItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -110,15 +110,15 @@ class DictProjectStagesController extends Controller
     }
 
     /**
-     * Finds the dictprojectstages model based on its primary key value.
+     * Finds the AuthItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return DictProjectStages the loaded model
+     * @param string $id
+     * @return AuthItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DictProjectStages::findOne($id)) !== null) {
+        if (($model = AuthItem::findOne($id)) !== null) {
             return $model;
         }
 

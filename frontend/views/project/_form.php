@@ -20,7 +20,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES) ?>
 
+    <?php //echo $form->field($model, 'fk_customer')->dropDownList($model->getUsers()); ?>
+
+    <?php //echo $form->field($model, 'fk_project_manager')->dropDownList($model->getUsers()); ?>
+
+    <?php //echo $form->field($model, 'fk_analyst')->dropDownList($model->getUsers()); ?>
+
+    <?php //echo $form->field($model, 'fk_inspector')->dropDownList($model->getUsers()); ?>
+
     <?php
+    //если вызвано обновление записи о проекте
     if (!$model->isNewRecord) {
         echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
             'id' => 'project-users-widget',
@@ -48,11 +57,23 @@ use yii\widgets\ActiveForm;
                     'title' => 'Username',
                     'items' => $model->getUsers(),
                 ],
-                [
+                /*[
                     'name' => 'role',
                     'type' => 'dropDownList',
-                    'title' => 'Role',
+                    'title' => 'Role by list',
                     'items' => ProjectUserModel::ROLES,
+                ],*/
+                /*[
+                    'name' => 'role',
+                    'type' => 'hiddenInput',
+                    'title' => 'Role',
+                    'defaultValue' => 'NULL',
+                ],*/
+                [
+                    'name' => 'fk_project_role',
+                    'type' => 'dropDownList',
+                    'title' => 'Role in project',
+                    'items' => $model->getRoles(),
                 ],
             ],
 
