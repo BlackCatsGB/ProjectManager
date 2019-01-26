@@ -2,15 +2,17 @@
 
 namespace frontend\controllers;
 
-use common\models\query\ProjectQuery;
+use common\models\ProjectsOnStagesByUser;
 use Yii;
+use common\models\ProjectsOnStages;
+use common\models\query\ProjectQuery;
 use common\models\ProjectModel;
 use common\models\ProjectSearch;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ProjectController implements the CRUD actions for ProjectModel model.
@@ -34,9 +36,16 @@ class ProjectController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                    //сначала запрещающие правила
+                    //пример простого использования rbac, если не нужны правила (rules)
+                    /*[
+                        'allow' => false,
+                        'actions' => ['index'],
+                        'roles' => ['manager'],
+                    ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'update', 'view', 'create', 'delete'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -70,7 +79,7 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }*/
-    public function actionIndex()
+    public function actionIndex($fk_stage = -1)
     {
         //$searchModel = new ProjectSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -83,12 +92,90 @@ class ProjectController extends Controller
         ]);*/
 
         $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize = 10; //пагинация по 10 записей на странице
+        //если фильтров нет
+        if ($fk_stage == -1) {
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        } //если стоит фильтр по этапу проекта, то отфильтровать список
+        else {
+            $dataProvider = new ActiveDataProvider([
+                'query' => ProjectModel::find()
+                    ->where('fk_stage=' . $fk_stage)
+            ]);
+        }
+        $dataProvider->pagination->pageSize = 12; //пагинация по 12 записей на странице
+
+        //провайдер для вывода перечня фильтров
+        $dataProviderProjectStages = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find(),
+        ]);
+
+        $dataProviderProjectStagesByUser = new ActiveDataProvider([
+            'query' => ProjectsOnStagesByUser::find(),
+        ]);
+
+        //провайдер для получения имени активного этапа по номеру
+        $dataProviderStageTitle = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find()->where('fk_stage = ' . $fk_stage),
+        ]);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dataProviderProjectStages' => $dataProviderProjectStages,
+            'dataProviderProjectStagesByUser' => $dataProviderProjectStagesByUser,
+            'dataProviderStageTitle' => $dataProviderStageTitle,
+            'fk_stage' => $fk_stage,
+        ]);
+    }
+
+    public function actionIndexByUser($fk_stage = -1)
+    {
+        //$searchModel = new ProjectSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        /* @var $query ProjectQuery */
+        //$query = $dataProvider->query;
+        //$query->byUser(Yii::$app->user->id);
+        /*return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);*/
+
+        $searchModel = new ProjectSearch();
+        //если фильтров нет
+        if ($fk_stage == -1) {
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        } //если стоит фильтр по этапу проекта, то отфильтровать список
+        else {
+            $dataProvider = new ActiveDataProvider([
+                'query' => ProjectModel::find()->joinWith('projectUsers')
+                    ->where('fk_stage=' . $fk_stage)->andWhere('user_id='.Yii::$app->user->id)
+            ]);
+        }
+        $dataProvider->pagination->pageSize = 12; //пагинация по 12 записей на странице
+
+        //провайдер для вывода перечня фильтров
+        $dataProviderProjectStages = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find(),
+        ]);
+
+        $dataProviderProjectStagesByUser = new ActiveDataProvider([
+            'query' => ProjectsOnStagesByUser::find(),
+        ]);
+
+        //провайдер для получения имени активного этапа по номеру
+        $dataProviderStageTitle = new ActiveDataProvider([
+            'query' => ProjectsOnStages::find()->where('fk_stage = ' . $fk_stage),
+        ]);
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'dataProviderProjectStages' => $dataProviderProjectStages,
+            'dataProviderProjectStagesByUser' => $dataProviderProjectStagesByUser,
+            'dataProviderStageTitle' => $dataProviderStageTitle,
+            'fk_stage' => $fk_stage,
         ]);
     }
 
@@ -112,15 +199,18 @@ class ProjectController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ProjectModel();
+        if (\Yii::$app->user->can('crudProject')) {
+            $model = new ProjectModel();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->redirect('/project');
     }
 
     /**
@@ -132,15 +222,18 @@ class ProjectController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('crudProject')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect('/project');
     }
 
     /**
@@ -152,9 +245,12 @@ class ProjectController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (\Yii::$app->user->can('crudProject')) {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }
+        return $this->redirect('/project');
     }
 
     /**

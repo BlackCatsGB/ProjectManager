@@ -1,5 +1,7 @@
 <?php
 
+use common\models\ProjectUserModel;
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,11 +20,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES) ?>
 
-    <?
-    if (!$model->isNewRecord) {
+    <?php //echo $form->field($model, 'fk_customer')->dropDownList($model->getUsers()); ?>
 
+    <?php //echo $form->field($model, 'fk_project_manager')->dropDownList($model->getUsers()); ?>
+
+    <?php //echo $form->field($model, 'fk_analyst')->dropDownList($model->getUsers()); ?>
+
+    <?php //echo $form->field($model, 'fk_inspector')->dropDownList($model->getUsers()); ?>
+
+    <?php
+    //если вызвано обновление записи о проекте
+    if (!$model->isNewRecord) {
         echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
-            //https://github.com/unclead/yii2-multiple-input
             'id' => 'project-users-widget',
             'max' => 6,
             'min' => 0,
@@ -48,11 +57,23 @@ use yii\widgets\ActiveForm;
                     'title' => 'Username',
                     'items' => $model->getUsers(),
                 ],
-                [
+                /*[
                     'name' => 'role',
                     'type' => 'dropDownList',
-                    'title' => 'Role',
+                    'title' => 'Role by list',
                     'items' => ProjectUserModel::ROLES,
+                ],*/
+                /*[
+                    'name' => 'role',
+                    'type' => 'hiddenInput',
+                    'title' => 'Role',
+                    'defaultValue' => 'NULL',
+                ],*/
+                [
+                    'name' => 'fk_project_role',
+                    'type' => 'dropDownList',
+                    'title' => 'Role in project',
+                    'items' => $model->getRoles(),
                 ],
             ],
 

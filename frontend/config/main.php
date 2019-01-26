@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
+    'name'=>'Project manager ++',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'language' => 'ru',
@@ -62,6 +63,9 @@ return [
                 '<controller>' => '<controller>/index',//контроллер теперь понимает путь tasks и работает как с task/index
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ]
     ],
     'params' => $params,
 ];

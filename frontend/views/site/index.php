@@ -2,55 +2,92 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Task manager App';
+$this->title = 'Project manager ++';
 ?>
 
 <? //echo \common\modules\chat\widgets\Chat::widget();//остатки чата по технологии comet ?>
 
 <div class="site-index">
+    <div class="body-content container">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <div class="">
+            <h1>Project manager ++</h1>
+            <h3>About</h3>
+            Project manager ++ contains several functions:
+            <li>project managment</li>
+            <li>tasks managment</li>
+            <li>demands managment (on ReactJS)</li>
+            <li>risks managment</li>
+            </ul>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+            <h2>Installation on Linux:</h2>
+            <h3>Yii2</h3>
+            <ul>
+                <li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"application directory"</i></li>
+                <li>cd <i>"application directory"</i></li>
+                <li>composer install</li>
+                <li>yii migrate/add</li>
+                <li>php init</li>
+                <li>manually confugure database connection in common/config/main-local.php</li>
+                <li>cp common/config/main-local.php <i>archive</i>/main-local.php</li>
+            </ul>
+            <h3>Demands module (ReactJS):</h3>
+            <ul>
+                <li>cd "destination directory"</li>
+                <li>npm -i</li>
+                <li>npm run build</li>
+            </ul>
+            <h2>Update application on Linux:</h2>
+            <ul>
+                <li>rm -r "application directory"</li>
+                <li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"application directory"</i></li>
+                <li>cd <i>"application directory"</i></li>
+                <li>composer install</li>
+                <li>yii migrate/add</li>
+                <li>php init</li>
+                <li>cp <i>archive</i>/main-local.php common/config/main-local.php</li>
+                <li>npm -i</li>
+                <li>npm run build</li>
+            </ul>
+            <h2>DIRECTORY STRUCTURE</h2>
+            <pre>
+            common
+                config/              contains shared configurations
+                mail/                contains view files for e-mails
+                models/              contains model classes used in both backend and frontend
+                tests/               contains tests for common classes
+                console
+                config/              contains console configurations
+                controllers/         contains console controllers (commands)
+                migrations/          contains database migrations
+                models/              contains console-specific model classes
+                runtime/             contains files generated during runtime
+            backend
+                assets/              contains application assets such as JavaScript and CSS
+                config/              contains backend configurations
+                controllers/         contains Web controller classes
+                models/              contains backend-specific model classes
+                runtime/             contains files generated during runtime
+                tests/               contains tests for backend application
+                views/               contains view files for the Web application
+                web/                 contains the entry script and Web resources
+            frontend
+                assets/              contains application assets such as JavaScript and CSS
+                config/              contains frontend configurations
+                controllers/         contains Web controller classes
+                models/              contains frontend-specific model classes
+                runtime/             contains files generated during runtime
+                tests/               contains tests for frontend application
+                views/               contains view files for the Web application
+                web/                 contains the entry script and Web resources
+                widgets/             contains frontend widgets
+            vendor/                  contains dependent 3rd-party packages
+            environments/            contains environment-based overrides
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+            src/                     contains ReactJS source code
+            dist/                    contains ReactJS bundle (after npm run build)
+            node_modules/            contains ReactJS 3rd-party packages
+            </pre>
         </div>
-
     </div>
 </div>

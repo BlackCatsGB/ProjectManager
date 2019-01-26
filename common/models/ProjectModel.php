@@ -21,12 +21,20 @@ use yii\db\ActiveRecord;
  * @property string $description Описание
  * @property int $created_by
  * @property int $updated_by
+ * @property int $fk_customer
+ * @property int $fk_project_manager
+ * @property int $fk_analyst
+ * @property int $fk_inspector
  * @property int $created_at
  * @property int $updated_at
  * @property DictProjectStages $fk_stage
  *
  * @property User $createdBy
  * @property User $updatedBy
+ * @property User $fkCustomer
+ * @property User $fkProjectManager
+ * @property User $fkAnalyst
+ * @property User $fkInspector
  * @property ProjectUserModel[] $projectUsers
  * @mixin SaveRelationsTrait
  */
@@ -125,10 +133,46 @@ class ProjectModel extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getFkStage()
     {
         return $this->hasOne(DictProjectStages::className(), ['id' => 'fk_stage']);
     }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    /*public function getFkCustomer()
+    {
+        return $this->hasOne(User::className(), ['id' => 'fk_customer']);
+    }*/
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    /*public function getFkProjectManager()
+    {
+        return $this->hasOne(User::className(), ['id' => 'fk_project_manager']);
+    }*/
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    /*public function getFkAnalyst()
+    {
+        return $this->hasOne(User::className(), ['id' => 'fk_analyst']);
+    }*/
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    /*public function getFkInspector()
+    {
+        return $this->hasOne(User::className(), ['id' => 'fk_inspector']);
+    }*/
 
     /**
      * @return ProjectUserQuery|ActiveRecord
@@ -158,6 +202,15 @@ class ProjectModel extends \yii\db\ActiveRecord
     }
 
     /**
+     * Выводит список ролей в проектах
+     * @return array
+     */
+    public function getRoles()
+    {
+        return DictProjectRoles::find()->select('name')->indexBy('id')->column();
+    }
+
+    /**
      * Список пользователей и ролей в проекте
      * @return array
      */
@@ -165,8 +218,6 @@ class ProjectModel extends \yii\db\ActiveRecord
     {
         return $this->getProjectUsers()->select('role')->indexBy('user_id')->column();
     }
-
-
 
 
 }

@@ -3,16 +3,40 @@
 Project manager ++ contains several functions:
 <li>project managment</li>
 <li>tasks managment</li>
-<li>demands managment</li>
+<li>demands managment (on ReactJS)</li>
 <li>risks managment</li>
 </ul>
 
-<h3>Installation:</h3>
+<h2>Installation on Linux:</h2>
+<h3>Yii2</h3>
 <ul>
-<li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"destination directory"</i></li>
+<li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"application directory"</i></li>
+<li>cd <i>"application directory"</i></li>
 <li>composer install</li>
+<li>yii migrate/up</li>
 <li>php init</li>
-<li>confugure database connection in common/config/main-local.php</li>
+<li>manually confugure database connection in common/config/main-local.php</li>
+<li>cp common/config/main-local.php <i>archive</i>/main-local.php</li>
+<li>yii migrate --migrationPath=@yii/rbac/migrations/</li>
+</ul>
+<h3>Demands module (ReactJS):</h3>
+<ul>
+<li>cd "application directory"</li>
+<li>npm -i</li>
+<li>npm run build</li>
+</ul>
+<h2>Update application on Linux:</h2>
+<ul>
+<li>rm -r "application directory"</li>
+<li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"application directory"</i></li>
+<li>cd <i>"application directory"</i></li>
+<li>composer install</li>
+<li>yii migrate/add</li>
+<li><b>yii rbac/init<b></li>
+<li>php init</li>
+<li>cp <i>archive</i>/main-local.php common/config/main-local.php</li>
+<li>npm -i</li>
+<li>npm run build</li>
 </ul>
 
 

@@ -9,11 +9,11 @@ $params = array_merge(
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
+    'name'=>'Project manager ++',
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     //'modules' => [],
     'layout'=>'adminLTE/main.php', //путь до layout ADMIN LTE
-
     'components' => [
         'language' => 'ru_RU',
         'request' => [
@@ -46,10 +46,22 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        /*'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+            ],
+        ],*/
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['api/user', 'api/project'],
+                ],
+                '<controller:[\w-]+>/<id:\d+>' => '<controller>/view',//контроллер теперь понимает путь task/123 и работает как с task/view?id=12
+                '<controller>' => '<controller>/index',//контроллер теперь понимает путь tasks и работает как с task/index
             ],
         ],
         //ADMIN LTE 2 - показ возможностей на основе шаблона - примера
