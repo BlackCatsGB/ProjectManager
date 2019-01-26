@@ -12,7 +12,7 @@ class m190126_094148_alter_table_project_user_add_fk_role extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('project_user', 'fk_project_role', $this->integer()->notNull());
+        $this->addColumn('project_user', 'fk_project_role', $this->integer());
 
         $this->addForeignKey('project_user-project_role', 'project_user', 'fk_project_role', 'dict_project_roles', 'id','cascade');
     }
