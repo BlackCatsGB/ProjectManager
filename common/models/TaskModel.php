@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use common\models\User;
 
 /**
  * This is the model class for table "task".
@@ -66,10 +67,10 @@ class TaskModel extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Название',
-            'description' => 'Описание',
-            'status_id' => 'Статус',
-            'deadline' => 'Срок',
+            'title' => 'Title',
+            'description' => 'Description',
+            'status_id' => 'Status',
+            'deadline' => 'Deadline',
             'estimation' => 'Estimation',
             'executor_id' => 'Executor ID',
             'started_at' => 'Started At',
@@ -135,12 +136,29 @@ class TaskModel extends \yii\db\ActiveRecord
         return $this->hasOne(ProjectModel::class, ['id' => 'project_id']);
     }
 
-    /*проверить*/
     public function getArrStatuses()
     {
-        //return $this->hasOne(ProjectModel::class, ['id' => $this->project_id]);
         return StatusModel::find()->where(['type' => 1])
             ->orderBy('id')
             ->all();
+    }
+
+    public function getArrTypes()
+    {
+        return TypeModel::find()->where(['type' => 1])
+            ->orderBy('id')
+            ->all();
+    }
+
+    public function getUserById($user_id)
+    {
+        return User::find()->where(['id' => $user_id])
+            ->one();
+    }
+
+    public function getProjectById($project_id)
+    {
+        return ProjectModel::find()->where(['id' => $project_id])
+            ->one();
     }
 }

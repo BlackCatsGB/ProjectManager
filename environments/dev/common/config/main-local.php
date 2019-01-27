@@ -3,9 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => 'mysql:host=localhost;dbname=db_final',
             'username' => 'root',
-            'password' => '',
+            'password' => '431107',
             'charset' => 'utf8',
         ],
         'mailer' => [

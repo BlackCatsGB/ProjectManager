@@ -33,17 +33,31 @@ $projects = \common\models\ProjectModel::find()
     <div id="part_general" class="active">
         <div class="head-top">
             <div class="head-left">
+                <div class="area-author">
+                    <div class="txt-status">Project:</div>
+                    <div class="txt-value"><?= $model->getProjectById($model->project_id)[0]['title'] ?></div>
+                </div>
                 <div class="area-name">
-                    <div class="txt-status">Название:</div>
+                    <div class="txt-status">Title:</div>
                     <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'name' => 'task_name', 'class' => 'form-control', 'id' => 'inputTaskName', 'placeholder' => 'Название задачи'])->label(false)?>
+                </div>
+                <div class="area-type">
+                    <div class="txt-status">Task type:</div>
+                    <?php
+                    $types = $model->getArrTypes();
+                    $arr_types = [];
+                    foreach ($types as $type) {
+                        $arr_types[$type->id] = $type->name;
+                    };
+                    echo $form->field($model, 'type_id')->dropDownList($arr_types)->label(false)
+                    ?>
                 </div>
             </div>
             <div class="head-right">
                 <div class="area-status">
-                    <div class="txt-status">Статус:</div>
+                    <div class="txt-status">Status:</div>
                     <?php
-                        $cl_task = new \common\models\TaskModel();
-                        $statuses = $cl_task->getArrStatuses();
+                        $statuses = $model->getArrStatuses();
                         $arr_status = [];
                         foreach ($statuses as $status) {
                             $arr_status[$status->id] = $status->name;
@@ -53,49 +67,30 @@ $projects = \common\models\ProjectModel::find()
 
                 </div>
                 <div class="area-dateline">
-                    <div class="txt-status">Срок:</div>
+                    <div class="txt-status">Deadline:</div>
                     <?= $form->field($model, 'deadline')->textInput(['name' => 'task_dateline', 'class' => 'form-control', 'id' => 'inputTaskDateline', 'type' => 'date'])->label(false)?>
                 </div>
-                <div class="area-author">
-                    <div class="txt-status">Авторство:</div>
-                    <div class="txt-value">01.10.2017 (Черняков С.И., p...@mail.ru)</div>
-                </div>
+                <?php
+                    if (!$model->isNewRecord) {
+                ?>
+                        <div class="area-author">
+                            <div class="txt-status">Author:</div>
+                            <div class="txt-value"><?= $model->created_at ?> (<?= $model->getUserById($model->created_at)[0]['username'] ?>, <?= $model->getUserById($model->created_at)[0]['email'] ?>)</div>
+                        </div>
+                <?php
+                    }
+                ?>
             </div>
         </div>
+        <br>
         <div class="head-second">
-            <div class="txt-status">Описание:</div>
-            <textarea name="task_description" class="form-control-full" id="inputTaskDescription">Описание</textarea>
-            <div class="area-type">
-                <div class="txt-status">Тип задачи:</div>
-                <div class="btn-group from_product_user_value">
-                    <div class="btn btn-default btn-width">
-                        <div class="select_text" id="select_text_type">Генерация идей</div>
-                    </div>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Меню с переключением</span>
-                    </button>
-                    <ul class="dropdown-menu btn-width-list" role="menu" id="ctrlType">
-                        <li><div class="menu_item_dropdown menu_item_dropdown_color">
-                                <div class="option_text">Генерация идей</div>
-                            </div></li>
-                        <li><div class="menu_item_dropdown menu_item_dropdown_color">
-                                <div class="option_text">Голосование</div>
-                            </div></li>
-                        <li><div class="menu_item_dropdown menu_item_dropdown_color">
-                                <div class="option_text">Ознакомление</div>
-                            </div></li>
-                        <li><div class="menu_item_dropdown menu_item_dropdown_color">
-                                <div class="option_text">Согласование</div>
-                            </div></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="txt-status">Description:</div>
+            <?= $form->field($model, 'description')->textarea(['name' => 'task_description', 'class' => 'form-control-full', 'id' => 'inputTaskDescription'])->label(false)?>
         </div>
 
         <div class="line_separate_main"></div>
 
-        <h3 class="subtitle">Решение</h3>
+        <div class="subtitle"><h3>Решение</h3></div>
         <div class="process_table">
             <div class="font_Title">
                 <div class="pr_number">№</div>
@@ -126,29 +121,8 @@ $projects = \common\models\ProjectModel::find()
             </div>
 
             <div class="line_separate"></div>
-            <div class="process_row">
-                <input type="hidden" name="idea_id" value=2 class="idea_id">
-                <div class="pr_number">
-                    <div class="idea_number_value"> 2 </div>
-                </div>
-                <a href="/" class="area_href"><div class="pr_idea area_href">
-                        <div class="idea_number_value"> Еще одна идея </div>
-                        <i class="fa fa-id-card-o idea_open"></i>
-                    </div></a>
-                <div class="pr_author">
-                    <div class="idea_number_value">Иванов И.И.</div>
-                </div>
-                <div class="pr_date">
-                    <div class="idea_number_value"> 01.10.2017 16:58:00 </div>
-                </div>
-                <div class="pr_delete">
-                    <i class="fa fa-times-circle idea_delete"></i>
-                </div>
-            </div>
-
-            <div class="line_separate"></div>
             <div id="idea_add" class="pr_add">
-                <i class="fa fa-plus-square idea_add"></i>
+                <i class="fa-plus-square idea_add"></i>
             </div>
         </div>
 
@@ -208,15 +182,6 @@ $projects = \common\models\ProjectModel::find()
             </div>
         </div>
     </div>
-
-    <?= $form->field($model, 'project_id')->dropDownList($projects)->label('Project title') ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label('Task title') ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'estimation')->textInput() ?>
-
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
