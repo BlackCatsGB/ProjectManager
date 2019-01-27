@@ -49,8 +49,6 @@ class LoginForm extends Model
                 Yii::info('user ' . $this->username . '(id=' . $this->username . ') - auth unsuccessful', 'security');
 
                 $this->addError($attribute, 'Incorrect username or password.');
-
-
             } else {
                 //дополнительная проверка для пользователей бэкэнда
                 if (isset(Yii::$app->params['back_admin'])) {
