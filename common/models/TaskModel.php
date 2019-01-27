@@ -54,6 +54,8 @@ class TaskModel extends \yii\db\ActiveRecord
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['project_id'], 'integer'],
+            //[['deadline'], 'date', 'dateFormat'=>'YYYY-MM-DD'],
+
         ];
     }
 
@@ -64,8 +66,10 @@ class TaskModel extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description',
+            'title' => 'Название',
+            'description' => 'Описание',
+            'status_id' => 'Статус',
+            'deadline' => 'Срок',
             'estimation' => 'Estimation',
             'executor_id' => 'Executor ID',
             'started_at' => 'Started At',
@@ -129,5 +133,14 @@ class TaskModel extends \yii\db\ActiveRecord
     {
         //return $this->hasOne(ProjectModel::class, ['id' => $this->project_id]);
         return $this->hasOne(ProjectModel::class, ['id' => 'project_id']);
+    }
+
+    /*проверить*/
+    public function getArrStatuses()
+    {
+        //return $this->hasOne(ProjectModel::class, ['id' => $this->project_id]);
+        return StatusModel::find()->where(['type' => 1])
+            ->orderBy('id')
+            ->all();
     }
 }
