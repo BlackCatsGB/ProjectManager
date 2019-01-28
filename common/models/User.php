@@ -67,7 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
                 'attribute' => 'avatar',
                 'scenarios' => [self::SCENARIO_ADMIN_CREATE, self::SCENARIO_ADMIN_UPDATE],
                 //параметры расположения картинки! необходимо настроить
-                'url' => Yii::$app->params['avatarURL'] ? Yii::$app->params['avatarURL'] : Yii::$app->request->hostInfo . '/upload/avatar/{id}',
+                'url' => Yii::$app->params['avatarURL'],
                 'path' => Yii::$app->params['avatarPath'],
                 'placeholder' => Yii::$app->params['avatarDefaultPath'],
                 'thumbs' => [
