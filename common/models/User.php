@@ -66,9 +66,10 @@ class User extends ActiveRecord implements IdentityInterface
                 'class' => UploadImageBehavior::class,
                 'attribute' => 'avatar',
                 'scenarios' => [self::SCENARIO_ADMIN_CREATE, self::SCENARIO_ADMIN_UPDATE],
-                //'placeholder' => '@frontend/web/upload/avatar/',
-                'path' => '@frontend/web/upload/avatar/{id}',
-                'url' => 'http://localhost/upload/avatar/{id}',
+                //параметры расположения картинки! необходимо настроить
+                'url' => Yii::$app->params['avatarURL'] ? Yii::$app->params['avatarURL'] : Yii::$app->request->hostInfo . '/upload/avatar/{id}',
+                'path' => Yii::$app->params['avatarPath'],
+                'placeholder' => Yii::$app->params['avatarDefaultPath'],
                 'thumbs' => [
                     self::AVATAR_PREVIEW => ['width' => 400, 'quality' => 90],
                     self::AVATAR_ICO => ['width' => 30, 'height' => 30, 'bg_color' => '333'],

@@ -9,35 +9,21 @@ Project manager ++ contains several functions:
 
 <h2>Installation on Linux:</h2>
 <h3>Yii2</h3>
-<ul>
-<li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"application directory"</i></li>
-<li>cd <i>"application directory"</i></li>
-<li>composer install</li>
-<li>yii migrate/up</li>
-<li>php init</li>
-<li>manually confugure database connection in common/config/main-local.php</li>
-<li>cp common/config/main-local.php <i>archive</i>/main-local.php</li>
-<li>yii migrate --migrationPath=@yii/rbac/migrations/</li>
-</ul>
+```
+git clone https://github.com/BlackCatsGB/ProjectManager "application directory"
+cd "application directory"
+composer install
+php init
+yii migrate/up
+manually confugure database connection in common/config/main-local.php
+manually configure common params of users avatars path and url: <i>common/config/params-local.php
+```
 <h3>Demands module (ReactJS):</h3>
-<ul>
-<li>cd "application directory"</li>
-<li>npm -i</li>
-<li>npm run build</li>
-</ul>
-<h2>Update application on Linux:</h2>
-<ul>
-<li>rm -r "application directory"</li>
-<li>git clone https://github.com/BlackCatsGB/ProjectManager <i>"application directory"</i></li>
-<li>cd <i>"application directory"</i></li>
-<li>composer install</li>
-<li>yii migrate/add</li>
-<li><b>yii rbac/init<b></li>
-<li>php init</li>
-<li>cp <i>archive</i>/main-local.php common/config/main-local.php</li>
-<li>npm -i</li>
-<li>npm run build</li>
-</ul>
+```
+cd "application directory"
+npm -i
+npm run build
+```
 
 
 DIRECTORY STRUCTURE
