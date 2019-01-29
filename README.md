@@ -15,8 +15,15 @@ cd "application directory"
 composer install
 php init
 yii migrate/up
-manually confugure database connection in common/config/main-local.php
-manually configure common params of users avatars path and url: <i>common/config/params-local.php
+```
+Configure
+```
+- manually confugure database connection in common/config/main-local.php
+- manually configure common params of users avatars path and url: <i>common/config/params-local.php
+- make folder for avatar images. for example:
+    mkdir -p /home/www/is/frontend/web/upload/avatar
+    chmod -R 777 /home/www/is/frontend/web/upload
+  Be careful when setting write permissions on folder. "777" is very bad practice
 ```
 <h3>Demands module (ReactJS):</h3>
 ```

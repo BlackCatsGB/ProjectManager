@@ -1,9 +1,11 @@
 <?php
 
 //use Yii;
+use common\models\ProjectModel;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use common\models\ProjectsOnStages;
@@ -15,6 +17,7 @@ use common\models\ProjectsOnStages;
 /* @var $dataProviderProjectStagesByUser yii\data\ActiveDataProvider */
 /* @var $dataProviderStageTitle yii\data\ActiveDataProvider */
 /* @var $fk_stage int */
+/* @var $id int */
 
 $this->title = 'Projects';
 
@@ -77,14 +80,14 @@ else {
                 //'id',
                 [
                     'attribute' => 'id',
-                    'value' => function (\common\models\ProjectModel $model) {
+                    'value' => function (ProjectModel $model) {
                         return Html::a($model->id, ['project/view', 'id' => $model->id]);
                     },
                     'format' => 'html',
                 ],
                 [
                     'attribute' => 'title',
-                    'value' => function (\common\models\ProjectModel $model) {
+                    'value' => function (ProjectModel $model) {
                         return Html::a($model->title, ['project/view', 'id' => $model->id]);
                     },
                     'format' => 'html',
@@ -145,7 +148,7 @@ else {
                 'updated_at:datetime',*/
                 [
                     'attribute' => 'Stage',
-                    'value' => function (\common\models\ProjectModel $model) {
+                    'value' => function (ProjectModel $model) {
                         return Html::a($model->fkStage->title, ['dict-project-stages/view', 'id' => $model->fkStage->id]);
                     },
                     'format' => 'html',
@@ -154,6 +157,29 @@ else {
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
+        <?php
+        /*$this->registerJs("$('center_panel td').click(function (e) {
+                var id = $(this).closest('tr').data('id');
+                if(e.target == this)
+                    location.href = '" . Url::to(['/project/index']) . "?fk_stage=1&id=".$id.";
+            });
+        ");*/
+        /*$this->registerJs(
+            "$('center_panel td').on('click', function(e){
+                //e.preventDefault();
+                var thr= $(this).closest('tr');
+                location.href = '/project/index?id=';
+                });"
+        );*/
+        $this->registerJs("
+            $('tbody td').on('click', function (e) {
+                // Получить ближайший ID в <tr> из data-key атрибута
+                var id = $(this).closest('tr').data('key');
+                if(e.target == this)
+                    location.href = '" . Url::to(['/project/index?fk_stage='.$fk_stage.'&']) . "id=' + id;
+            });
+        ", yii\web\View::POS_END);
+        ?>
         <?php Pjax::end(); ?>
     </div>
     <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
@@ -164,6 +190,17 @@ else {
             if (Yii::$app->user->can('crudProject')) {
                 echo Html::a('Create project', ['create'], ['class' => 'btn btn-success']);
             }
+
+            //здесь я баловался с отображением деталей проекта. не хватает обработки клика на строке GridView. Забыл JS
+            $dataProviderProjectDetails = new ActiveDataProvider([
+                'query' => ProjectModel::find()->where('id = ' . $id),
+            ]);
+
+            $model = ProjectModel::findOne($id);
+            if ($model)
+                echo $this->render('view_detail', [
+                    'model' => $model,
+                ]);
             ?>
         </p>
     </div>

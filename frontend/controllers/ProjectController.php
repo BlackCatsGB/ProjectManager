@@ -79,7 +79,7 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }*/
-    public function actionIndex($fk_stage = -1)
+    public function actionIndex($fk_stage = -1, $id = -1)
     {
         //$searchModel = new ProjectSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -126,10 +126,11 @@ class ProjectController extends Controller
             'dataProviderProjectStagesByUser' => $dataProviderProjectStagesByUser,
             'dataProviderStageTitle' => $dataProviderStageTitle,
             'fk_stage' => $fk_stage,
+            'id' => $id,
         ]);
     }
 
-    public function actionIndexByUser($fk_stage = -1)
+    public function actionIndexByUser($fk_stage = -1, $id = -1)
     {
         //$searchModel = new ProjectSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -149,7 +150,7 @@ class ProjectController extends Controller
         else {
             $dataProvider = new ActiveDataProvider([
                 'query' => ProjectModel::find()->joinWith('projectUsers')
-                    ->where('fk_stage=' . $fk_stage)->andWhere('user_id='.Yii::$app->user->id)
+                    ->where('fk_stage=' . $fk_stage)->andWhere('user_id=' . Yii::$app->user->id)
             ]);
         }
         $dataProvider->pagination->pageSize = 12; //пагинация по 12 записей на странице
@@ -176,6 +177,7 @@ class ProjectController extends Controller
             'dataProviderProjectStagesByUser' => $dataProviderProjectStagesByUser,
             'dataProviderStageTitle' => $dataProviderStageTitle,
             'fk_stage' => $fk_stage,
+            'id' => $id,
         ]);
     }
 

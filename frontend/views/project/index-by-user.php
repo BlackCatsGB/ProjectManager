@@ -1,6 +1,7 @@
 <?php
 
 //use Yii;
+use common\models\ProjectModel;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -15,6 +16,7 @@ use common\models\ProjectsOnStages;
 /* @var $dataProviderProjectStagesByUser yii\data\ActiveDataProvider */
 /* @var $dataProviderStageTitle yii\data\ActiveDataProvider */
 /* @var $fk_stage int */
+/* @var $id int */
 
 $this->title = 'Projects';
 
@@ -153,7 +155,16 @@ else {
                 //пользователи фронтэнда не могут править проекты
                 ['class' => 'yii\grid\ActionColumn'],
             ],
-        ]); ?>
+        ]);
+        $this->registerJs("
+            $('tbody td').on('click', function (e) {
+                // Получить ближайший ID в <tr> из data-key атрибута
+                var id = $(this).closest('tr').data('key');
+                if(e.target == this)
+                    location.href = '" . Url::to(['/project/index-by-user?fk_stage='.$fk_stage.'&']) . "id=' + id;
+            });
+        ", yii\web\View::POS_END);
+        ?>
         <?php Pjax::end(); ?>
     </div>
     <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
@@ -164,6 +175,17 @@ else {
             if (Yii::$app->user->can('crudProject')) {
                 echo Html::a('Create project', ['create'], ['class' => 'btn btn-success']);
             }
+
+            //здесь я баловался с отображением деталей проекта. не хватает обработки клика на строке GridView. Забыл JS
+            $dataProviderProjectDetails = new ActiveDataProvider([
+                'query' => ProjectModel::find()->where('id = ' . $id),
+            ]);
+
+            $model = ProjectModel::findOne($id);
+            if ($model)
+                echo $this->render('view_detail', [
+                    'model' => $model,
+                ]);
             ?>
         </p>
     </div>

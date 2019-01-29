@@ -36,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute' => 'updatedBy.username', 'label' => 'Updater',],
             'created_at:datetime',
             'updated_at:datetime',
-
         ],
     ]) ?>
 
