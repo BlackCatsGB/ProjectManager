@@ -176,7 +176,7 @@ else {
                 // Получить ближайший ID в <tr> из data-key атрибута
                 var id = $(this).closest('tr').data('key');
                 if(e.target == this)
-                    location.href = '" . Url::to(['/project/index?fk_stage='.$fk_stage.'&']) . "id=' + id;
+                    location.href = '" . Url::to(['/project/?fk_stage='.$fk_stage.'&']) . "id=' + id;
             });
         ", yii\web\View::POS_END);
         ?>

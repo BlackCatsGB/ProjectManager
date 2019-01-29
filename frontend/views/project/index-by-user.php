@@ -5,6 +5,7 @@ use common\models\ProjectModel;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use common\models\ProjectsOnStages;
@@ -163,7 +164,7 @@ else {
                 if(e.target == this)
                     location.href = '" . Url::to(['/project/index-by-user?fk_stage='.$fk_stage.'&']) . "id=' + id;
             });
-        ", yii\web\View::POS_END);
+            ", yii\web\View::POS_END);
         ?>
         <?php Pjax::end(); ?>
     </div>

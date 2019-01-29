@@ -79,6 +79,7 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }*/
+
     public function actionIndex($fk_stage = -1, $id = -1)
     {
         //$searchModel = new ProjectSearch();
@@ -170,7 +171,7 @@ class ProjectController extends Controller
         ]);
 
 
-        return $this->render('index', [
+        return $this->render('index-by-user', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'dataProviderProjectStages' => $dataProviderProjectStages,
