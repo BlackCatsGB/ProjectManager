@@ -41,8 +41,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems = [
-            //['label' => 'Users', 'url' => ['/users']],
-            ['label' => 'Project stages', 'url' => ['/dict-project-stages']],
+            ['label' => 'Project users (for test)', 'url' => ['/project-user']],
             ['label' => 'Demands', 'url' => ['/demand']],
             ['label' => 'Projects', 'url' => ['/project']],
             ['label' => 'Tasks', 'url' => ['/task']],

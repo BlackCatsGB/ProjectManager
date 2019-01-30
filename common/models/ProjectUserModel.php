@@ -12,6 +12,7 @@ use Yii;
  * @property int $project_id
  * @property int $user_id
  * @property string $role
+ * @property int $fk_project_role
  *
  * @property ProjectModel $project
  * @property User $user
@@ -37,7 +38,7 @@ class ProjectUserModel extends \yii\db\ActiveRecord
 
     public static function primaryKey()
     {
-        return ['project_id', 'user_id', 'role'];
+        return ['project_id', 'user_id'];
     }
 
     /**
@@ -47,10 +48,11 @@ class ProjectUserModel extends \yii\db\ActiveRecord
     {
         return [
             [['project_id', 'user_id'], 'required'],
-            [['project_id', 'user_id'], 'integer'],
+            [['project_id', 'user_id','fk_project_role'], 'integer'],
             [['role'], 'string'],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProjectModel::className(), 'targetAttribute' => ['project_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['fk_project_role'], 'exist', 'skipOnError' => true, 'targetClass' => DictProjectRoles::className(), 'targetAttribute' => ['fk_project_role' => 'id']],
         ];
     }
 
@@ -63,6 +65,7 @@ class ProjectUserModel extends \yii\db\ActiveRecord
             'project_id' => 'Project ID',
             'user_id' => 'User ID',
             'role' => 'Role',
+            'fk_project_role' => 'Role in project',
         ];
     }
 
@@ -83,6 +86,14 @@ class ProjectUserModel extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFkProjectRole()
+    {
+        return $this->hasOne(DictProjectRoles::className(), ['id' => 'fk_project_role']);
+    }
+
+    /**
      * {@inheritdoc}
      * @return ProjectUserQuery the active query used by this AR class.
      */
@@ -90,4 +101,5 @@ class ProjectUserModel extends \yii\db\ActiveRecord
     {
         return new ProjectUserQuery(get_called_class());
     }
+
 }

@@ -28,6 +28,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'updated_by') ?>
 
+    <?= $form->field($model, 'fk_customer')->dropDownList($model->getUsers()) ?>
+
+    <?= $form->field($model, 'fk_project_manager')->dropDownList($model->getUsers()) ?>
+
+    <?= $form->field($model, 'fk_analyst')->dropDownList($model->getUsers()) ?>
+
+    <?= $form->field($model, 'fk_inspector')->dropDownList($model->getUsers()) ?>
+
     <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
