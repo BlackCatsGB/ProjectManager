@@ -295,6 +295,21 @@ class ProjectController extends Controller
                         //анализ
                         case "2":
                             //добавить требования к проекту
+                            $query = "
+                            INSERT INTO `project_manager`.`projects_demands`
+                                    (`fk_project`, `fk_demand`, `is_relevant`, `created_at`,        `created_by`)
+                                SELECT " . $id . ", d.id,           1,          " . time() . " , " . Yii::$app->user->id . " 
+                                FROM 
+                                    demands d,
+                                    (
+                                    SELECT * 
+                                    FROM project_manager.demands_version p1, 
+                                      (
+                                        SELECT max(created_at) as m 
+                                        FROM project_manager.demands_version) p2 
+                                    WHERE p1.created_at=p2.m) v
+                                WHERE d.id_version=v.id";
+                            Yii::$app->db->createCommand($query)->execute();
 
                             return $this->actionViewAnalyseStage($id);
                             /*return $this->render($nextStage[0]["action"], [
