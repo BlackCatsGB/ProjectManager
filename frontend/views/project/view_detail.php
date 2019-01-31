@@ -22,7 +22,7 @@ use yii\widgets\DetailView;
             'updated_at:datetime',
         ],
     ]) ?>
-    <?php echo Html::a('Move', ['move', 'id' => $model->id , 'view' => 'index'], [
+    <?php echo Html::a('Move to next stage', ['move', 'id' => $model->id , 'view' => 'index'], [
         'class' => 'btn btn-warning btn-sm',
         'data' => [
             'confirm' => 'Are you sure you want to move project at next stage?',

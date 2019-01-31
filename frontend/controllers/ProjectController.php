@@ -191,8 +191,37 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        switch ($model->fk_stage) {
+            //анализ
+            case "2":
+                //добавить требования к проекту
+
+                return $this->actionViewAnalyseStage($id);
+                /*return $this->render($nextStage[0]["action"], [
+                    'model' => $model,
+                ]);*/
+                break;
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays a single ProjectModel model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewAnalyseStage($id)
+    {
+        $projectModel = $this->findModel($id);
+
+        return $this->render('viewProjectDemands', [
+            'model' => $projectModel,
         ]);
     }
 
@@ -255,12 +284,27 @@ class ProjectController extends Controller
 
         //получаем номер следующего этапа
         $nextStage = DictProjectStages::getNextStage($model->fk_stage);
-        //записываем номер следующего этапа
-        if ($nextStage) {
-            $model->setAttribute('fk_stage', $nextStage[0]["id"]);
-            $model->save();
-        }
 
+        //проверяем права
+        if (\Yii::$app->user->can('moveToAnalyseProject')) {
+            //записываем номер следующего этапа
+            if ($nextStage) {
+                $model->setAttribute('fk_stage', $nextStage[0]["id"]);
+                if ($model->save()) {
+                    switch ($nextStage[0]["id"]) {
+                        //анализ
+                        case "2":
+                            //добавить требования к проекту
+
+                            return $this->actionViewAnalyseStage($id);
+                            /*return $this->render($nextStage[0]["action"], [
+                                'model' => $model,
+                            ]);*/
+                            break;
+                    }
+                };
+            }
+        }
 
         return $this->render('view', [
             'model' => $model,

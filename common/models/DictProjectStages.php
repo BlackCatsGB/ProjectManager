@@ -48,7 +48,7 @@ class DictProjectStages extends \yii\db\ActiveRecord
 
     public static function getNextStage($id)
     {
-        $query = "SELECT s0.id 
+        $query = "SELECT s0.id, s0.title, s0.action 
                   from dict_project_stages as s0, 
                   (SELECT min(s2.ord) as m 
                       FROM dict_project_stages as s1, dict_project_stages as s2 
