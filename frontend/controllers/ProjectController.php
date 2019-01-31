@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\DictProjectStages;
 use common\models\ProjectsOnStagesByUser;
 use Yii;
 use common\models\ProjectsOnStages;
@@ -45,7 +46,7 @@ class ProjectController extends Controller
                     ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -237,6 +238,47 @@ class ProjectController extends Controller
             ]);
         }
         return $this->redirect('/project');
+    }
+
+    /**
+     * Updates an existing ProjectModel model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionMove($id)
+    {
+        //получаем информацию о проекте
+        $model = $this->findModel($id);
+
+
+        //получаем номер следующего этапа
+        $nextStage = DictProjectStages::getNextStage($model->fk_stage);
+        //записываем номер следующего этапа
+        if ($nextStage) {
+            $model->setAttribute('fk_stage', $nextStage[0]["id"]);
+            $model->save();
+        }
+
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+
+        /*if (\Yii::$app->user->can('moveToAnalyseProject')) {
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect('/project');*/
+        return;
     }
 
     /**

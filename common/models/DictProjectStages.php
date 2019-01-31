@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "dict_project_stages".
@@ -43,5 +44,16 @@ class DictProjectStages extends \yii\db\ActiveRecord
             'title' => 'Title',
             'ord' => 'Ord',
         ];
+    }
+
+    public static function getNextStage($id)
+    {
+        $query = "SELECT s0.id 
+                  from dict_project_stages as s0, 
+                  (SELECT min(s2.ord) as m 
+                      FROM dict_project_stages as s1, dict_project_stages as s2 
+                      where s1.ord<s2.ord and s1.id=" . $id . ") as s3 
+                  where s0.ord=s3.m;";
+        return Yii::$app->db->createCommand($query)->queryAll();
     }
 }

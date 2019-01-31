@@ -14,12 +14,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?php echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']); ?>
+    <p class="">
+        <?php echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']); ?>
         <?php echo Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+            'class' => 'btn btn-danger btn-sm',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]); ?>
+        <?php echo Html::a('Move', ['move', 'id' => $model->id, 'view' => 'view'], [
+            'class' => 'btn btn-warning btn-sm',
+            'data' => [
+                'confirm' => 'Are you sure you want to move project at next stage?',
                 'method' => 'post',
             ],
         ]); ?>
