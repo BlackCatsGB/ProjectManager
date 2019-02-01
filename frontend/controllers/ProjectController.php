@@ -316,6 +316,7 @@ class ProjectController extends Controller
                                         FROM project_manager.demands_version) p2 
                                     WHERE p1.created_at=p2.m) v
                                 WHERE d.id_version=v.id";
+                            echo $query;
                             Yii::$app->db->createCommand($query)->execute();
 
                             return $this->actionViewAnalyseStage($id);
