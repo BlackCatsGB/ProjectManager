@@ -288,30 +288,19 @@ class ProjectController extends Controller
         //получаем информацию о проекте
         $model = $this->findModel($id);
 
-        //echo 'point 1';
-
         //получаем номер следующего этапа
         $nextStage = DictProjectStages::getNextStage($model->fk_stage);
 
-        //echo 'point 2';
-
         //проверяем права
         if (\Yii::$app->user->can('moveToAnalyseProject')) {
-
-            //echo 'point 3';
-
             //записываем номер следующего этапа
             if ($nextStage) {
-                //echo 'point 4';
                 $model->setAttribute('fk_stage', $nextStage[0]["id"]);
-                //echo 'point 5';
                 if ($model->save()) {
-                    //echo 'point 6';
                     switch ($nextStage[0]["id"]) {
                         //анализ
                         case "2":
                             //добавить требования к проекту
-                            //echo 'point 7';
                             $query = "
                             INSERT INTO `projects_demands`
                                     (`fk_project`, `fk_demand`, `is_relevant`, `created_at`,        `created_by`)
@@ -326,7 +315,6 @@ class ProjectController extends Controller
                                         FROM demands_version) p2 
                                     WHERE p1.created_at=p2.m) v
                                 WHERE d.id_version=v.id";
-                            echo $query;
                             Yii::$app->db->createCommand($query)->execute();
 
                             return $this->actionViewAnalyseStage($id);

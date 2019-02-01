@@ -26,10 +26,10 @@ class m190131_153353_create_projects_demands_table extends Migration
 
         $this->addPrimaryKey('pk', 'projects_demands', ['fk_project', 'fk_demand']);
 
-        $this->addForeignKey('pd-projects', 'projects_demands', 'fk_project', 'project', 'id');
-        $this->addForeignKey('pd-demands', 'projects_demands', 'fk_demand', 'demands', 'id');
-        $this->addForeignKey('pd-user-created_by', 'projects_demands', 'created_by', 'user', 'id');
-        $this->addForeignKey('pd-user-updated_by', 'projects_demands', 'updated_by', 'user', 'id');
+        $this->addForeignKey('pd-projects', 'projects_demands', 'fk_project', 'project', 'id','cascade');
+        $this->addForeignKey('pd-demands', 'projects_demands', 'fk_demand', 'demands', 'id','cascade');
+        $this->addForeignKey('pd-user-created_by', 'projects_demands', 'created_by', 'user', 'id','cascade');
+        $this->addForeignKey('pd-user-updated_by', 'projects_demands', 'updated_by', 'user', 'id','cascade');
     }
 
     /**

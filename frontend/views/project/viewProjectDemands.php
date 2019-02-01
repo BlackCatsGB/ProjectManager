@@ -69,8 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
         //'rowOptions' => ['class' => 'btn-primary'],
         'rowOptions' => function ($model, $key, $index, $grid) {
             return [
-                'class' => $model->fkDemand->id_parent ? 'text-white' : '',
-                'style' => $model->fkDemand->id_parent ? 'background-color: #aaa;' : '',
+                'class' => !$model->fkDemand->id_parent ? 'text-white' : '',
+                'style' => !$model->fkDemand->id_parent ? 'background-color: #aaa;' : '',
             ];
         },
         'tableOptions' => ['class' => 'table table-hover'],
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Demand'
             ],
             //баловство со стилями столбца
-            [
+            /*[
                 'attribute' => 'fk_demand',
                 //стили столбцов
                 'options' => ['class' => 'bg-dark text-white'],
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'html',
                 'label' => 'id parent'
-            ],
+            ],*/
             ['class' => ActionColumn::className()],
         ],
     ])
