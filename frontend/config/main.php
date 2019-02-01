@@ -12,7 +12,7 @@ return [
     'name'=>'Project manager ++',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'language' => 'ru',
+    'language' => 'en',
     'modules' => [
         'api' => [
             'class' => 'frontend\modules\api\api',

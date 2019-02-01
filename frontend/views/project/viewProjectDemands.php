@@ -1,10 +1,14 @@
 <?php
 
+use common\models\ProjectsDemands;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProjectModel */
+/* @var $dataProviderProjectDemands yii\data\ActiveDataProvider */
 
 $this->title = "Analisis of project";
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
@@ -41,14 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
     ])*/; ?>
 
     <p class="">
-        <?php echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']); ?>
-        <?php echo Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?php //echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']); ?>
+        <?php /*echo Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger btn-sm',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]); ?>
+        ]); */ ?>
         <?php echo Html::a('Move to next stage', ['move', 'id' => $model->id, 'view' => 'view'], [
             'class' => 'btn btn-warning btn-sm',
             'data' => [
@@ -57,6 +61,56 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]); ?>
     </p>
+
+    <?= GridView::widget([
+        'layout' => "{items}",
+        'dataProvider' => $dataProviderProjectDemands,
+        //стили строк
+        //'rowOptions' => ['class' => 'btn-primary'],
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            return [
+                'class' => $model->fkDemand->id_parent ? 'text-white' : '',
+                'style' => $model->fkDemand->id_parent ? 'background-color: #aaa;' : '',
+            ];
+        },
+        'tableOptions' => ['class' => 'table table-hover'],
+        //'filterModel' => $searchModel,
+        'columns' => [
+            //актуальность требования для проекта
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                'multiple' => true,
+                'checkboxOptions' => function ($model, $key, $index, $column) {
+                    return $model->is_relevant ? ['checked' => "checked"] : [];
+                },
+
+            ],
+            //формулировка требования
+            [
+                'attribute' => 'fk_demand',
+                'value' => function (ProjectsDemands $model) {
+                    return $model->fkDemand->text;
+                    //return Html::a($model->fkDemand->text, ['/demand', 'id' => $model->id]);
+                },
+                'format' => 'html',
+                'label' => 'Demand'
+            ],
+            //баловство со стилями столбца
+            [
+                'attribute' => 'fk_demand',
+                //стили столбцов
+                'options' => ['class' => 'bg-dark text-white'],
+                'value' => function (ProjectsDemands $model) {
+                    return $model->fkDemand->id_parent;
+                    //return Html::a($model->fkDemand->text, ['/demand', 'id' => $model->id]);
+                },
+                'format' => 'html',
+                'label' => 'id parent'
+            ],
+            ['class' => ActionColumn::className()],
+        ],
+    ])
+    ?>
 
     <?php /*echo \yii2mod\comments\widgets\Comment::widget([
         'model' => $model,

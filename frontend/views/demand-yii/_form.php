@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="demands-form">
+<div class="demands-form container">
 
     <?php $form = ActiveForm::begin(); ?>
 

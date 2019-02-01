@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\DictProjectStages;
+use common\models\ProjectsDemands;
 use common\models\ProjectsOnStagesByUser;
 use Yii;
 use common\models\ProjectsOnStages;
@@ -220,8 +221,14 @@ class ProjectController extends Controller
     {
         $projectModel = $this->findModel($id);
 
+        //провайдер для вывода перечня фильтров
+        $dataProviderProjectDemands = new ActiveDataProvider([
+            'query' => ProjectsDemands::find()->where('fk_project=' . $id),
+        ]);
+
         return $this->render('viewProjectDemands', [
             'model' => $projectModel,
+            'dataProviderProjectDemands' => $dataProviderProjectDemands,
         ]);
     }
 
