@@ -313,17 +313,17 @@ class ProjectController extends Controller
                             //добавить требования к проекту
                             echo 'point 7';
                             $query = "
-                            INSERT INTO `project_manager`.`projects_demands`
+                            INSERT INTO `projects_demands`
                                     (`fk_project`, `fk_demand`, `is_relevant`, `created_at`,        `created_by`)
                                 SELECT " . $id . ", d.id,           1,          " . time() . " , " . Yii::$app->user->id . " 
                                 FROM 
                                     demands d,
                                     (
                                     SELECT * 
-                                    FROM project_manager.demands_version p1, 
+                                    FROM demands_version p1, 
                                       (
                                         SELECT max(created_at) as m 
-                                        FROM project_manager.demands_version) p2 
+                                        FROM demands_version) p2 
                                     WHERE p1.created_at=p2.m) v
                                 WHERE d.id_version=v.id";
                             echo $query;
