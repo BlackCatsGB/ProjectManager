@@ -42,7 +42,8 @@ AppAsset::register($this);
     } else {
         $menuItems = [
             ['label' => 'Project users (for test)', 'url' => ['/project-user']],
-            ['label' => 'Demands', 'url' => ['/demand']],
+            ['label' => 'Demands (React)', 'url' => ['/demand']],
+            ['label' => 'Demands (Yii)', 'url' => ['/demand-yii']],
             ['label' => 'Projects', 'url' => ['/project']],
             ['label' => 'Tasks', 'url' => ['/task']],
             ['label' => 'Profile', 'url' => ['/user/profile']],

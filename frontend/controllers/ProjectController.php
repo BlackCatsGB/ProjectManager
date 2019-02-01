@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\models\DictProjectStages;
+use common\models\ProjectsDemands;
 use common\models\ProjectsOnStagesByUser;
 use Yii;
 use common\models\ProjectsOnStages;
@@ -45,7 +47,7 @@ class ProjectController extends Controller
                     ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -190,8 +192,43 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        switch ($model->fk_stage) {
+            //анализ
+            case "2":
+                //добавить требования к проекту
+
+                return $this->actionViewAnalyseStage($id);
+                /*return $this->render($nextStage[0]["action"], [
+                    'model' => $model,
+                ]);*/
+                break;
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays a single ProjectModel model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewAnalyseStage($id)
+    {
+        $projectModel = $this->findModel($id);
+
+        //провайдер для вывода перечня фильтров
+        $dataProviderProjectDemands = new ActiveDataProvider([
+            'query' => ProjectsDemands::find()->where('fk_project=' . $id),
+        ]);
+
+        return $this->render('viewProjectDemands', [
+            'model' => $projectModel,
+            'dataProviderProjectDemands' => $dataProviderProjectDemands,
         ]);
     }
 
@@ -237,6 +274,77 @@ class ProjectController extends Controller
             ]);
         }
         return $this->redirect('/project');
+    }
+
+    /**
+     * Updates an existing ProjectModel model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionMove($id)
+    {
+        //получаем информацию о проекте
+        $model = $this->findModel($id);
+
+
+        //получаем номер следующего этапа
+        $nextStage = DictProjectStages::getNextStage($model->fk_stage);
+
+        //проверяем права
+        if (\Yii::$app->user->can('moveToAnalyseProject')) {
+            //записываем номер следующего этапа
+            if ($nextStage) {
+                $model->setAttribute('fk_stage', $nextStage[0]["id"]);
+                if ($model->save()) {
+                    switch ($nextStage[0]["id"]) {
+                        //анализ
+                        case "2":
+                            //добавить требования к проекту
+                            $query = "
+                            INSERT INTO `project_manager`.`projects_demands`
+                                    (`fk_project`, `fk_demand`, `is_relevant`, `created_at`,        `created_by`)
+                                SELECT " . $id . ", d.id,           1,          " . time() . " , " . Yii::$app->user->id . " 
+                                FROM 
+                                    demands d,
+                                    (
+                                    SELECT * 
+                                    FROM project_manager.demands_version p1, 
+                                      (
+                                        SELECT max(created_at) as m 
+                                        FROM project_manager.demands_version) p2 
+                                    WHERE p1.created_at=p2.m) v
+                                WHERE d.id_version=v.id";
+                            Yii::$app->db->createCommand($query)->execute();
+
+                            return $this->actionViewAnalyseStage($id);
+                            /*return $this->render($nextStage[0]["action"], [
+                                'model' => $model,
+                            ]);*/
+                            break;
+                    }
+                };
+            }
+        }
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+
+        /*if (\Yii::$app->user->can('moveToAnalyseProject')) {
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect('/project');*/
+        return;
     }
 
     /**

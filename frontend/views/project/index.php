@@ -188,7 +188,7 @@ else {
         <p>
             <?php
             if (Yii::$app->user->can('crudProject')) {
-                echo Html::a('Create project', ['create'], ['class' => 'btn btn-success']);
+                echo Html::a('Create new project', ['create'], ['class' => 'btn btn-success']);
             }
 
             //здесь я баловался с отображением деталей проекта. не хватает обработки клика на строке GridView. Забыл JS
