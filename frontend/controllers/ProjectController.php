@@ -47,7 +47,7 @@ class ProjectController extends Controller
                     ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move','kartik'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -377,5 +377,22 @@ class ProjectController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    //TEST KARTIK TABULAR FORM
+    public function actionKartik()
+    {
+        $query = ProjectModel::find()->indexBy('id'); // where `id` is your primary key
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $searchModel = new ProjectModel();
+
+        return $this->render('kartik', [
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+        ]);
     }
 }

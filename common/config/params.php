@@ -9,5 +9,5 @@ return [
     'avatarURL' => 'http://pm/upload/avatar/{id}',
     'avatarPath' => '@frontend/web/upload/avatar/{id}',
     'avatarDefaultPath' => '@frontend/web/images/default.jpg',
-    'bsVersion' => '4.x', // this will set globally `bsVersion` to Bootstrap 4.x for all Krajee Extensions
+    //'bsVersion' => '4.x', // this will set globally `bsVersion` to Bootstrap 4.x for all Krajee Extensions
 ];
