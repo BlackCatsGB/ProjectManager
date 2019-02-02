@@ -17,6 +17,9 @@ return [
         'api' => [
             'class' => 'frontend\modules\api\api',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ],
     ],
     'components' => [
         'language' => 'ru',
