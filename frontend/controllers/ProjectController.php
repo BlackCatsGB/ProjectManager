@@ -402,20 +402,21 @@ class ProjectController extends Controller
 
     public function actionKartikUpdate()
     {
-        $sourceModel = new ProjectModel();
-        //var_dump($sourceModel);
+        $sourceModel = new ProjectSearch();
         $dataProvider = $sourceModel->search(Yii::$app->request->getQueryParams());
         $models = $dataProvider->getModels();
-        if (ProjectModel::loadMultiple($models, Yii::$app->request->post()) && ProjectModel::validateMultiple($models)) {
+        if (ProjectSearch::loadMultiple($models, Yii::$app->request->post()) && ProjectSearch::validateMultiple($models)) {
             $count = 0;
+            /* @param ProjectSearch $model */
             foreach ($models as $index => $model) {
                 // populate and save records for each model
+                //var_dump($model["id"].' '.$model["title"].' '.$model["active"]);
                 if ($model->save()) {
                     $count++;
                 }
             }
             Yii::$app->session->setFlash('success', "Processed {$count} records successfully.");
-            return $this->redirect(['index']); // redirect to your next desired page
+            return $this->redirect(['kartik']); // redirect to your next desired page
         } else {
             return $this->render('update', [
                 'model' => $sourceModel,
