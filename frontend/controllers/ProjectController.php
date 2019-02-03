@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use common\models\DictProjectStages;
 use common\models\ProjectsDemands;
 use common\models\ProjectsOnStagesByUser;
+use kartik\grid\CheckboxColumn;
+use kartik\grid\GridView;
 use Yii;
 use common\models\ProjectsOnStages;
 use common\models\query\ProjectQuery;
@@ -47,7 +49,7 @@ class ProjectController extends Controller
                     ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move','kartik'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move', 'kartik','kartik-update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -386,7 +388,9 @@ class ProjectController extends Controller
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+
         ]);
+        $dataProvider->pagination->pageSize = 12;
 
         $searchModel = new ProjectModel();
 
@@ -394,5 +398,29 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
             'model' => $searchModel,
         ]);
+    }
+
+    public function actionKartikUpdate()
+    {
+        $sourceModel = new ProjectModel();
+        //var_dump($sourceModel);
+        $dataProvider = $sourceModel->search(Yii::$app->request->getQueryParams());
+        $models = $dataProvider->getModels();
+        if (ProjectModel::loadMultiple($models, Yii::$app->request->post()) && ProjectModel::validateMultiple($models)) {
+            $count = 0;
+            foreach ($models as $index => $model) {
+                // populate and save records for each model
+                if ($model->save()) {
+                    $count++;
+                }
+            }
+            Yii::$app->session->setFlash('success', "Processed {$count} records successfully.");
+            return $this->redirect(['index']); // redirect to your next desired page
+        } else {
+            return $this->render('update', [
+                'model' => $sourceModel,
+                'dataProvider' => $dataProvider
+            ]);
+        }
     }
 }

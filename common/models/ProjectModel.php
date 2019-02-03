@@ -230,10 +230,10 @@ class ProjectModel extends \yii\db\ActiveRecord
     public function getFormAttribs() {
         return [
             // primary key column
-            'id'=>[ // primary key attribute
+            /*'id'=>[ // primary key attribute
                 'type'=>TabularForm::INPUT_HIDDEN,
                 'columnOptions'=>['hidden'=>true]
-            ],
+            ],*/
             'title'=>['type'=>TabularForm::INPUT_TEXT],
             /*'publish_date'=>[
                 'type' => function($model, $key, $index, $widget) {
