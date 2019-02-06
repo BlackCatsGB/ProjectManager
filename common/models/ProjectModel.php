@@ -5,19 +5,16 @@ namespace common\models;
 use common\models\query\ProjectQuery;
 use common\models\query\ProjectUserQuery;
 
+use kartik\widgets\SwitchInput;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use common\models\ProjectUserModel;
 use yii\db\ActiveRecord;
 
 use kartik\builder\TabularForm;
-use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
-use kartik\color\ColorInput;
-use kartik\date\DatePicker;
+
 
 /**
  * This is the model class for table "project".
@@ -227,14 +224,19 @@ class ProjectModel extends \yii\db\ActiveRecord
     }
 
     //KARTIK TESTS
-    public function getFormAttribs() {
+    public function getFormAttribs()
+    {
         return [
             // primary key column
-            'id'=>[ // primary key attribute
-                'type'=>TabularForm::INPUT_HIDDEN,
-                'columnOptions'=>['hidden'=>true]
+            'id' => [ // primary key attribute
+                'type' => TabularForm::INPUT_HIDDEN,
+                'columnOptions' => ['hidden' => true]
             ],
-            'title'=>['type'=>TabularForm::INPUT_TEXT],
+            'title' => ['type' => TabularForm::INPUT_TEXT],
+            'description' => ['type' => TabularForm::INPUT_TEXT],
+            'active' => [
+                'type' => TabularForm::INPUT_WIDGET,
+                'widgetClass' => SwitchInput::classname()],
             /*'publish_date'=>[
                 'type' => function($model, $key, $index, $widget) {
                     return ($key % 2 === 0) ? TabularForm::INPUT_HIDDEN : TabularForm::INPUT_WIDGET;

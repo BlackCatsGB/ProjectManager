@@ -32,7 +32,7 @@ else {
 ?>
 <div class="project-model-index row">
     <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="left_panel">
+    <div class="col-md-2">
         <h4>To do:</h4>
         <?= ListView::widget([
             'dataProvider' => $dataProviderProjectStagesByUser,
@@ -58,7 +58,7 @@ else {
         </a>
     </div>
     <?php /////////////////////////////////////////CENTER_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="center_panel">
+    <div class="col-md-8 container">
         <div class="space_between">
             <div>
                 <h1><?= Html::encode($this->title) ?></h1>
@@ -183,7 +183,7 @@ else {
         <?php Pjax::end(); ?>
     </div>
     <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="right_panel">
+    <div class="col-md-2">
         <h4>Actions:</h4>
         <p>
             <?php

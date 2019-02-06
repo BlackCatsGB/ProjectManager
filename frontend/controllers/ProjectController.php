@@ -49,7 +49,7 @@ class ProjectController extends Controller
                     ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move', 'kartik','kartik-update'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move', 'kartik', 'kartik-update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -402,15 +402,19 @@ class ProjectController extends Controller
 
     public function actionKartikUpdate()
     {
-        $sourceModel = new ProjectSearch();
-        $dataProvider = $sourceModel->search(Yii::$app->request->getQueryParams());
+        //$sourceModel = new ProjectSearch();
+        //$dataProvider = $sourceModel->search(Yii::$app->request->getQueryParams());
+        $query = ProjectModel::find()->indexBy('id'); // where `id` is your primary key
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
         $models = $dataProvider->getModels();
-        if (ProjectSearch::loadMultiple($models, Yii::$app->request->post()) && ProjectSearch::validateMultiple($models)) {
+        if (ProjectModel::loadMultiple($models, Yii::$app->request->post()) /*&& ProjectSearch::validateMultiple($models)*/) {
             $count = 0;
             /* @param ProjectSearch $model */
             foreach ($models as $index => $model) {
                 // populate and save records for each model
-                //var_dump($model["id"].' '.$model["title"].' '.$model["active"]);
+                //var_dump($model["id"] . ' ' . $model["title"] . ' ' . $model["active"]);
                 if ($model->save()) {
                     $count++;
                 }
@@ -418,10 +422,11 @@ class ProjectController extends Controller
             Yii::$app->session->setFlash('success', "Processed {$count} records successfully.");
             return $this->redirect(['kartik']); // redirect to your next desired page
         } else {
-            return $this->render('update', [
+            return $this->redirect(['kartik']);
+            /*return $this->render('kartik', [
                 'model' => $sourceModel,
                 'dataProvider' => $dataProvider
-            ]);
+            ]);*/
         }
     }
 }

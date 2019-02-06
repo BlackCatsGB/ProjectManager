@@ -16,7 +16,7 @@ use kartik\widgets\SwitchInput;
         'type' => TabularForm::INPUT_WIDGET,
         'widgetClass' => SwitchInput::classname(),
     );
-    $form->action='/project/kartik-update';
+    $form->action = '/project/kartik-update';
     echo TabularForm::widget([
         'dataProvider' => $dataProvider,
         'form' => $form,
@@ -31,10 +31,7 @@ use kartik\widgets\SwitchInput;
                 'after' =>
                     Html::button('<i class="fas fa-plus"></i> Add New', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create']) . ' ' .
                     Html::button('<i class="fas fa-times"></i> Delete', ['type' => 'button', 'class' => 'btn btn-danger kv-batch-delete']) . ' ' .
-                    Html::button('<i class="fas fa-save"></i> Save', ['type' => 'button', 'class' => 'btn btn-primary kv-batch-save',
-                        'formaction' => '/project/kartik-update',
-                        'formmethod' => 'post',
-                    ])
+                    Html::button('<i class="fas fa-save"></i> Save', ['type' => 'button', 'class' => 'btn btn-primary kv-batch-save'])
             ]
         ],
     ]);
