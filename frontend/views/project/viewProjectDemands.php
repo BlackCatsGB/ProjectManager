@@ -1,10 +1,14 @@
 <?php
 
 use common\models\ProjectsDemands;
+use frontend\assets\ProjectDemandsAsset;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
+
+ProjectDemandsAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProjectModel */
@@ -83,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'checkboxOptions' => function ($model, $key, $index, $column) {
                     return $model->is_relevant ? ['checked' => "checked"] : [];
                 },
+                //'label' => 'Is relevant'
 
             ],
             //формулировка требования
@@ -110,6 +115,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => ActionColumn::className()],
         ],
     ])
+    ?>
+    <?php
+    /*$this->registerJs("
+            //MARKER1
+            $('tbody td').on('click', function (e) {
+                // Получить ближайший ID в <tr> из data-key атрибута
+                var id = $(this).closest('tr').data('key');
+                if(e.target == this)
+                    alert(id);
+                    //location.href = '" . Url::to(['/project/?fk_stage=' . $fk_stage . '&']) . "id=' + id;
+            });
+        ", yii\web\View::POS_END);*/
     ?>
 
     <?php /*echo \yii2mod\comments\widgets\Comment::widget([

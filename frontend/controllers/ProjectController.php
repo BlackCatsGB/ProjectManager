@@ -5,12 +5,15 @@ namespace frontend\controllers;
 use common\models\DictProjectStages;
 use common\models\ProjectsDemands;
 use common\models\ProjectsOnStagesByUser;
+use kartik\grid\CheckboxColumn;
+use kartik\grid\GridView;
 use Yii;
 use common\models\ProjectsOnStages;
 use common\models\query\ProjectQuery;
 use common\models\ProjectModel;
 use common\models\ProjectSearch;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -47,7 +50,9 @@ class ProjectController extends Controller
                     ],*/
                     [
                         //'actions' => [/*'logout', 'index', 'update', 'view',*/ 'create'/*, 'delete', 'my'*/],
-                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete', 'move'],
+                        'actions' => ['logout', 'index', 'index-by-user', 'update', 'view', 'create', 'delete',
+                            'move', 'kartik', 'kartik-update', 'api-project-demands-is-relevant-update'
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -378,4 +383,116 @@ class ProjectController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    //TEST KARTIK TABULAR FORM
+    public function actionKartik()
+    {
+        $query = ProjectModel::find()->indexBy('id'); // where `id` is your primary key
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+
+        ]);
+        $dataProvider->pagination->pageSize = 12;
+
+        $searchModel = new ProjectModel();
+
+        return $this->render('kartik', [
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+        ]);
+    }
+
+    //TEST KARTIK TABULAR FORM
+    public function actionTrululu()
+    {
+        $query = ProjectModel::find()->indexBy('id'); // where `id` is your primary key
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+
+        ]);
+        //$dataProvider->pagination->pageSize = 50;
+
+        $searchModel = new ProjectModel();
+
+        return $this->render('kartikm', [
+            'dataProvider' => $dataProvider,
+            'model' => $searchModel,
+        ]);
+    }
+
+    public function actionKartikUpdate()
+    {
+        //$sourceModel = new ProjectSearch();
+        //$dataProvider = $sourceModel->search(Yii::$app->request->getQueryParams());
+        $query = ProjectModel::find()->indexBy('id'); // where `id` is your primary key
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $models = $dataProvider->getModels();
+        var_dump(Yii::$app->request->post());
+        if (ProjectModel::loadMultiple($models, Yii::$app->request->post()) && ProjectSearch::validateMultiple($models)) {
+            $count = 0;
+            /* @param ProjectSearch $model */
+            foreach ($models as $index => $model) {
+                // populate and save records for each model
+                //var_dump($model["id"] . ' ' . $model["title"] . ' ' . $model["active"]);
+                if ($model->save()) {
+                    $count++;
+                }
+            }
+            Yii::$app->session->setFlash('success', "Processed {$count} records successfully.");
+            return $this->redirect(['kartik']); // redirect to your next desired page
+        } else {
+            return $this->redirect(['kartik']);
+            /*return $this->render('kartik', [
+                'model' => $sourceModel,
+                'dataProvider' => $dataProvider
+            ]);*/
+        }
+    }
+
+    public function actionApiProjectDemandsIsRelevantUpdate()
+    {
+        $result = new ApiResult();
+        $result->code = 0;
+        $result->message = "error";
+
+        if (Yii::$app->request->post('fk_project')
+            && Yii::$app->request->post('fk_demand')
+            && Yii::$app->request->post('is_relevant') != null
+        ) {
+            //получаем параметры
+            $fk_project = Yii::$app->request->post('fk_project');
+            $fk_demand = Yii::$app->request->post('fk_demand');
+
+            //загружаем из базы строку, меняем релевантность требования и сохраняем
+            $projectdemand = ProjectsDemands::findOne(['fk_demand' => $fk_demand, 'fk_project' => $fk_project]);
+            $projectdemand->is_relevant = Yii::$app->request->post('is_relevant');
+            if ($projectdemand->save()) {
+                //задаем параметры для возврата на страницу
+                $result->code = 1;
+                $result->message = "ok";
+            } else {
+                $result->code = 0;
+                $result->message = "update error";
+            }
+
+        } else {
+            //задаем параметры для возврата на страницу
+            $result->code = 0;
+            $result->message = "invalid query parameters";
+            $result->data = Yii::$app->request->post();
+        }
+
+        return Json::encode($result);
+    }
+}
+
+class ApiResult
+{
+    public $code;
+    public $message;
+    public $data;
 }

@@ -42,8 +42,8 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems = [
-            ['label' => 'Project users (for test)', 'url' => ['/project-user']],
-            ['label' => 'Demands (React)', 'url' => ['/demand']],
+            //['label' => 'Project<->Users', 'url' => ['/project-user']],
+            //['label' => 'Demands (React)', 'url' => ['/demand']],
             ['label' => 'Demands (Yii)', 'url' => ['/demand-yii']],
             ['label' => 'Projects', 'url' => ['/project']],
             ['label' => 'Tasks', 'url' => ['/task']],
@@ -68,11 +68,11 @@ AppAsset::register($this);
         <div class="container"><?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?></div>
-        <div><?= Alert::widget() ?></div>
-        <div><?= $content ?></div>
+        <div class="container"><?= Alert::widget() ?></div>
+        <div class="container_my2"><?= $content ?></div>
     </div>
-
 </div>
+
 
 <footer class="footer">
     <div class="container">
@@ -83,6 +83,7 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>

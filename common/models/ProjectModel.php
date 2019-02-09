@@ -4,13 +4,17 @@ namespace common\models;
 
 use common\models\query\ProjectQuery;
 use common\models\query\ProjectUserQuery;
+
+use kartik\widgets\SwitchInput;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use common\models\ProjectUserModel;
 use yii\db\ActiveRecord;
+
+use kartik\builder\TabularForm;
+
 
 /**
  * This is the model class for table "project".
@@ -219,5 +223,78 @@ class ProjectModel extends \yii\db\ActiveRecord
         return $this->getProjectUsers()->select('role')->indexBy('user_id')->column();
     }
 
+    //KARTIK TESTS
+    public function getFormAttribs()
+    {
+        return [
+            // primary key column
+            'id' => [ // primary key attribute
+                'type' => TabularForm::INPUT_HIDDEN,
+                'columnOptions' => ['hidden' => true]
+            ],
+            'title' => ['type' => TabularForm::INPUT_TEXT],
+            'description' => ['type' => TabularForm::INPUT_TEXT],
+            'active' => [
+                'type' => TabularForm::INPUT_WIDGET,
+                'widgetClass' => SwitchInput::classname()],
+            /*'publish_date'=>[
+                'type' => function($model, $key, $index, $widget) {
+                    return ($key % 2 === 0) ? TabularForm::INPUT_HIDDEN : TabularForm::INPUT_WIDGET;
+                },
+                'widgetClass'=> DatePicker::classname(),
+                'options'=> function($model, $key, $index, $widget) {
+                    return ($key % 2 === 0) ? [] :
+                        [
+                            'pluginOptions'=>[
+                                'format'=>'yyyy-mm-dd',
+                                'todayHighlight'=>true,
+                                'autoclose'=>true
+                            ]
+                        ];
+                },
+                'columnOptions'=>['width'=>'170px']
+            ],*/
+            /*'color'=>[
+                'type'=>TabularForm::INPUT_WIDGET,
+                'widgetClass'=> ColorInput::classname(),
+                'options'=>[
+                    'showDefaultPalette'=>false,
+                    'pluginOptions'=>[
+                        'preferredFormat'=>'name',
+                        'palette'=>[
+                            [
+                                "white", "black", "grey", "silver", "gold", "brown",
+                            ],
+                            [
+                                "red", "orange", "yellow", "indigo", "maroon", "pink"
+                            ],
+                            [
+                                "blue", "green", "violet", "cyan", "magenta", "purple",
+                            ],
+                        ]
+                    ]
+                ],
+                'columnOptions'=>['width'=>'150px'],
+            ],*/
 
+            /*'author_id'=>[
+                'type'=>TabularForm::INPUT_DROPDOWN_LIST,
+                'items'=>ArrayHelper::map(Author::find()->orderBy('name')->asArray()->all(), 'id', 'name'),
+                'columnOptions'=>['width'=>'185px']
+            ],*/
+            /*
+            'buy_amount'=>[
+                'type'=>TabularForm::INPUT_TEXT,
+                'label'=>'Buy',
+                'options'=>['class'=>'form-control text-right'],
+                'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px']
+            ],
+            */
+            /*'sell_amount'=>[
+                'type'=>TabularForm::INPUT_STATIC,
+                'label'=>'Sell',
+                'columnOptions'=>['hAlign'=>GridView::ALIGN_RIGHT, 'width'=>'90px']
+            ],*/
+        ];
+    }
 }

@@ -29,9 +29,7 @@ class m190201_213146_alter_project_stages_values extends Migration
      */
     public function safeDown()
     {
-        echo "m190201_213146_alter_project_stages_values cannot be reverted.\n";
-
-        return false;
+        ;
     }
 
     /*
