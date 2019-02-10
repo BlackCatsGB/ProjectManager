@@ -4,6 +4,7 @@
 
 /* @var $content string */
 
+use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -35,7 +36,9 @@ AppAsset::register($this);
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
+
         ],
+        //'encodeLabels' => false,
     ]);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -44,22 +47,25 @@ AppAsset::register($this);
         $menuItems = [
             //['label' => 'Project<->Users', 'url' => ['/project-user']],
             //['label' => 'Demands (React)', 'url' => ['/demand']],
-            ['label' => 'Demands', 'url' => ['/demand-yii']],
-            ['label' => 'Projects', 'url' => ['/project']],
-            ['label' => 'Tasks', 'url' => ['/task']],
-            ['label' => 'Profile', 'url' => ['/user/profile']],
+            ['label' => '<i class="fa fa-th-list" aria-hidden="true"></i>' . ' Demands', 'url' => ['/demand-yii']],
+            ['label' => '<i class="fa fa-indent" aria-hidden="true"></i>' . ' Projects', 'url' => ['/project']],
+            ['label' => '<i class="fa fa-tasks" aria-hidden="true"></i>' . ' Tasks', 'url' => ['/task']],
+            ['label' => '<i class="fa fa-user" aria-hidden="true"></i>' . ' Profile', 'url' => ['/user/profile']],
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                ' Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
             . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => [
+            'class' => 'navbar-nav navbar-right',
+        ],
+        'encodeLabels' => false,
         'items' => $menuItems,
     ]);
     NavBar::end();

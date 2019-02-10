@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use common\models\DictProjectStages;
+use common\models\OrderedDemands;
+use common\models\OrderedDemands2;
 use common\models\ProjectsDemands;
 use common\models\ProjectsOnStagesByUser;
 use kartik\grid\CheckboxColumn;
@@ -217,7 +219,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Displays a single ProjectModel model.
+     * Displays a single ProjectModel model on analyse stage.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -227,8 +229,17 @@ class ProjectController extends Controller
         $projectModel = $this->findModel($id);
 
         //провайдер для вывода перечня фильтров
-        $dataProviderProjectDemands = new ActiveDataProvider([
+        /*$dataProviderProjectDemands = new ActiveDataProvider([
             'query' => ProjectsDemands::find()->where('fk_project=' . $id),
+        ]);*/
+        $dataProviderProjectDemands = new ActiveDataProvider([
+            'query' => OrderedDemands2::find()
+                ->where('fk_project=' . $id)
+                ->orderBy(['ord' => SORT_DESC])
+                ->indexBy('fk_demand'),
+            'sort' => [
+                'defaultOrder' => ['ord' => SORT_ASC],
+            ],
         ]);
 
         return $this->render('viewProjectDemands', [

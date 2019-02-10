@@ -73,8 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
         //'rowOptions' => ['class' => 'btn-primary'],
         'rowOptions' => function ($model, $key, $index, $grid) {
             return [
-                'class' => !$model->fkDemand->id_parent ? 'text-white' : '',
-                'style' => !$model->fkDemand->id_parent ? 'background-color: #aaa;' : '',
+                'class' => $model->pid==-1 ? 'text-white' : '',
+                'style' => $model->pid==-1 ? 'background-color: #aaa;' : '',
             ];
         },
         'tableOptions' => ['class' => 'table table-hover'],
@@ -88,18 +88,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->is_relevant ? ['checked' => "checked"] : [];
                 },
                 //'label' => 'Is relevant'
-
             ],
             //формулировка требования
             [
-                'attribute' => 'fk_demand',
-                'value' => function (ProjectsDemands $model) {
-                    return $model->fkDemand->text;
+                'value' => function (\common\models\OrderedDemands2 $model) {
+                    return $model->text;
                     //return Html::a($model->fkDemand->text, ['/demand', 'id' => $model->id]);
                 },
                 'format' => 'html',
                 'label' => 'Demand'
             ],
+            /*[
+                'attribute' => 'fk_demand',
+                'value' => function (ProjectsDemands $model) {
+                    return $model->orderedDemand->ord;
+                    //return Html::a($model->fkDemand->text, ['/demand', 'id' => $model->id]);
+                },
+                'format' => 'html',
+                'label' => 'Demand ORD'
+            ],*/
             //баловство со стилями столбца
             /*[
                 'attribute' => 'fk_demand',
@@ -112,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'label' => 'id parent'
             ],*/
-            ['class' => ActionColumn::className()],
+            //['class' => ActionColumn::className()],
         ],
     ])
     ?>

@@ -20,6 +20,7 @@ use Yii;
  * @property ProjectModel $fkProject
  * @property User $createdBy
  * @property User $updatedBy
+ * @property OrderedDemands $orderedDemand
  */
 class ProjectsDemands extends \yii\db\ActiveRecord
 {
@@ -78,7 +79,7 @@ class ProjectsDemands extends \yii\db\ActiveRecord
      */
     public function getFkProject()
     {
-        return $this->hasOne(Project::className(), ['id' => 'fk_project']);
+        return $this->hasOne(ProjectModel::className(), ['id' => 'fk_project']);
     }
 
     /**
@@ -95,6 +96,14 @@ class ProjectsDemands extends \yii\db\ActiveRecord
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrderedDemand()
+    {
+        return $this->hasOne(OrderedDemands::className(), ['id' => 'fk_demand']);
     }
 
 }
