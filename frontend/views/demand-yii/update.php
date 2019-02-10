@@ -5,9 +5,18 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Demands */
 
-$this->title = 'Update Demands: ' . $model->id;
+/*$this->title = 'Update Demand';
 $this->params['breadcrumbs'][] = ['label' => 'Demands', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Update';*/
+
+const max_len = 74;
+
+$this->title = 'Update demand';
+$crumb = $model->id . '. ' . substr($model->text, 0, max_len);
+if (strlen($model->text) > max_len) $crumb .= '..';
+$this->params['breadcrumbs'][] = ['label' => 'Demands', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $crumb, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="demands-update container">

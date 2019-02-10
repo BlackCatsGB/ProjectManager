@@ -403,25 +403,6 @@ class ProjectController extends Controller
         ]);
     }
 
-    //TEST KARTIK TABULAR FORM
-    public function actionTrululu()
-    {
-        $query = ProjectModel::find()->indexBy('id'); // where `id` is your primary key
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-
-        ]);
-        //$dataProvider->pagination->pageSize = 50;
-
-        $searchModel = new ProjectModel();
-
-        return $this->render('kartikm', [
-            'dataProvider' => $dataProvider,
-            'model' => $searchModel,
-        ]);
-    }
-
     public function actionKartikUpdate()
     {
         //$sourceModel = new ProjectSearch();
