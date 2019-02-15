@@ -11,7 +11,7 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="task-model-view">
+<div class="task-model-view container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

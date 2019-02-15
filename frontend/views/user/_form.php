@@ -9,16 +9,16 @@ use common\models\User;
 /* @var $form \yii\bootstrap\ActiveForm */
 ?>
 
-<div class="user-form">
+<div class="user-form container">
 
     <?php $form = ActiveForm::begin([
         'layout' => 'horizontal',
         'fieldConfig' => [
             'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
             'horizontalCssClasses' => [
-                'label' => 'col-sm-2',
+                'label' => 'col-sm-1',
                 'offset' => 'col-sm-offset-4',
-                'wrapper' => 'col-sm-8',
+                'wrapper' => 'col-sm-3',
                 'error' => '',
                 'hint' => '',
             ],
@@ -27,13 +27,17 @@ use common\models\User;
 
     <?php /**echo $form->field($model, 'status')->textInput() */ ?>
 
-
-
-    <?= $form->field($model, 'avatar')->fileInput(['accept' => 'image/*'])->label('Icon')
-    /*->label(Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO))) */   ?>
-
-    <?= Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO), ['class' => 'col-sm-offset-3']) ?>
-    <br><br>
+    <div>
+        <?= Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_PREVIEW), ['class' => 'col-sm-offset-1']) ?>
+        <?= Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO_BIG), ['class' => '']) ?>
+        <?= Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO), ['class' => '']) ?>
+        <?= Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO_MIN), ['class' => '']) ?>
+    </div><br>
+    <div>
+        <?= $form->field($model, 'avatar')->fileInput(['accept' => 'image/*', 'class' => 'flex'])->label('Icon')
+        /*->label(Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO))) */ ?>
+    </div>
+    <?php //echo Html::img($model->getThumbUploadUrl('avatar', User::AVATAR_ICO), ['class' => 'col-sm-offset-3']); ?>
 
     <?= $form->field($model, 'email') ?>
     <?php /**echo $form->field($model, 'status')->dropDownList(User::STATUSES; //пользователь не может себя выключить */ ?>

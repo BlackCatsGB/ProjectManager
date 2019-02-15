@@ -5,8 +5,10 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Demands */
+/* @var $is_group boolean */
 
-$this->title = 'Create Demands';
+if ($is_group) $this->title = 'Create group';
+else $this->title = 'Create demand';
 $this->params['breadcrumbs'][] = ['label' => 'Demands', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'is_group'=>$is_group,
     ]) ?>
 
 </div>

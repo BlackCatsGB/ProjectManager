@@ -2,9 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\OrderedDemands;
+use common\models\OrderedDemands2;
 use Yii;
 use common\models\Demands;
 use common\models\DemandSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,11 +38,19 @@ class DemandYiiController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new DemandSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$searchModel = new OrderedDemands();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => OrderedDemands::find()
+                ->orderBy(['ord' => SORT_ASC])
+                ->indexBy('id'),
+            'sort' => [
+                'defaultOrder' => ['ord' => SORT_ASC],
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            //'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -60,18 +71,26 @@ class DemandYiiController extends Controller
     /**
      * Creates a new Demands model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param boolean $is_group
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($is_group = false)
     {
         $model = new Demands();
+        if ($is_group == '1') $is_group = true;
+        else $is_group = false;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->is_group = $is_group;
+            if ($is_group) $model->id_parent = null;
+            if ($model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'is_group' => $is_group,
         ]);
     }
 

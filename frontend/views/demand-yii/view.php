@@ -33,6 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             //'uid',
+            [
+                'attribute' => 'is_group',
+                'filter' => \common\models\Demands::GROUP_STATUSES,
+                'value' => function (\common\models\Demands $model){
+                    return \common\models\Demands::GROUP_STATUSES[$model->is_group];
+                }
+            ],
             'text',
             //'id_version',
             'id_parent',

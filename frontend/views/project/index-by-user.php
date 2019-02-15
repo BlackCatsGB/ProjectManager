@@ -32,7 +32,7 @@ else {
 ?>
 <div class="project-model-index row">
     <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="left_panel">
+    <div class="col-md-2">
         <h4>To do:</h4>
         <?= ListView::widget([
             'dataProvider' => $dataProviderProjectStagesByUser,
@@ -58,7 +58,7 @@ else {
         </a>
     </div>
     <?php /////////////////////////////////////////CENTER_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="center_panel">
+    <div class="col-md-8 container">
         <div class="space_between">
             <div>
                 <h1><?= Html::encode($this->title) ?></h1>
@@ -71,26 +71,39 @@ else {
                 </h1>
             </div>
         </div>
+        <div class="table-responsive">
         <?php Pjax::begin(); ?>
         <?= GridView::widget([
+            'tableOptions' => ['class' => 'table table-hover'],
             'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
+            //'filterModel' => $searchModel,
+            'rowOptions' => [
+                'style' => 'cursor:pointer'
+            ],
             'columns' => [
                 //['class' => 'yii\grid\SerialColumn'],
                 //'id',
                 [
                     'attribute' => 'id',
                     'value' => function (\common\models\ProjectModel $model) {
-                        return Html::a($model->id, ['project/view', 'id' => $model->id]);
+                        //return Html::a($model->id, ['project/view', 'id' => $model->id]);
+                        return $model->id;
                     },
                     'format' => 'html',
+                    'headerOptions' => [
+                        'style' => 'width: 65px;',
+                    ],
                 ],
                 [
                     'attribute' => 'title',
                     'value' => function (\common\models\ProjectModel $model) {
-                        return Html::a($model->title, ['project/view', 'id' => $model->id]);
+                        //return Html::a($model->title, ['project/view', 'id' => $model->id]);
+                        return $model->title;
                     },
                     'format' => 'html',
+                    'headerOptions' => [
+                        'style' => 'width: 80%; max-width:80%;word-wrap:break-word;',
+                    ],
                 ],
                 /*[
                     'attribute' => \common\models\ProjectModel::RELATION_PROJECT_USERS . '.role',
@@ -149,7 +162,8 @@ else {
                 [
                     'attribute' => 'Stage',
                     'value' => function (\common\models\ProjectModel $model) {
-                        return Html::a($model->fkStage->title, ['dict-project-stages/view', 'id' => $model->fkStage->id]);
+                        //return Html::a($model->fkStage->title, ['dict-project-stages/view', 'id' => $model->fkStage->id]);
+                        return $model->fkStage->title;
                     },
                     'format' => 'html',
                 ],
@@ -166,10 +180,11 @@ else {
             });
             ", yii\web\View::POS_END);
         ?>
+        </div>
         <?php Pjax::end(); ?>
     </div>
     <?php /////////////////////////////////////////RIGHT_PANEL/////////////////////////////////////////////////////////; ?>
-    <div class="right_panel">
+    <div class="col-md-2">
         <h4>Actions:</h4>
         <p>
             <?php

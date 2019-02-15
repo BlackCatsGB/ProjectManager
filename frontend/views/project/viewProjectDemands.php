@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-model-view container">
 
-    <h1><?= Html::encode($model->title) ?></h1>
+    <h1><?= 'Project: '.Html::encode($model->title) ?></h1>
     <p class="card-text">Created by: <?php echo ucfirst($model->createdBy->username); ?>
         on <?php echo date('d.m.Y', $model->created_at); ?>
         at <?php echo date('H:i', $model->created_at); ?>
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card">
         <div class="card-body">
 
-            <h4 class="card-title">Description</h4>
+            <h2 class="card-title">Description</h2>
             <p class="card-text"><?php echo $model->description; ?></p>
         </div>
     </div>
@@ -73,11 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
         //'rowOptions' => ['class' => 'btn-primary'],
         'rowOptions' => function ($model, $key, $index, $grid) {
             return [
-                'class' => $model->pid==-1 ? 'text-white' : '',
-                'style' => $model->pid==-1 ? 'background-color: #aaa;' : '',
+                'class' => $model->pid==-1 ? 'bg-info text-white' : '',
+                //'style' => $model->pid==-1 ? 'background-color: #aaa;' : '',
             ];
         },
-        'tableOptions' => ['class' => 'table table-hover'],
+        'tableOptions' => ['class' => 'table table-hover table-responsive'],
         //'filterModel' => $searchModel,
         'columns' => [
             //актуальность требования для проекта

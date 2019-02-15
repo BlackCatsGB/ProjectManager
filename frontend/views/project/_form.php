@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES) ?>
+    <?php //echo $form->field($model, 'active')->dropDownList(\common\models\ProjectModel::STATUSES); ?>
 
     <?php //echo $form->field($model, 'fk_customer')->dropDownList($model->getUsers()); ?>
 

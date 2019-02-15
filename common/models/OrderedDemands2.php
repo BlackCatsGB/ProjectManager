@@ -28,7 +28,7 @@ class OrderedDemands2 extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'ordered_demands';
+        return 'ordered_demands_of_project';
     }
 
     public static function primaryKey()

@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="task-model-index row">
-    <div class="left_panel">left_panel</div>
-    <div class="container">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 container">
         <h1><?= Html::encode($this->title) ?></h1>
         <?php Pjax::begin(); ?>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -127,5 +127,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
         <?php Pjax::end(); ?>
     </div>
-    <div class="right_panel">right_panel</div>
+    <div class="col-md-2"></div>
 </div>

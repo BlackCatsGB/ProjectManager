@@ -26,6 +26,11 @@ class ProjectUser2 extends \yii\db\ActiveRecord
         return 'project_user';
     }
 
+    public static function primaryKey()
+    {
+        return ['project_id', 'user_id'];
+    }
+
     /**
      * {@inheritdoc}
      */

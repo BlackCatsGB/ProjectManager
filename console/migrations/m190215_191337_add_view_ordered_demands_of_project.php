@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m190210_113831_view_ordered_demands
+ * Class m190215_191337_add_view_ordered_demands_of_project
  */
-class m190210_113831_view_ordered_demands extends Migration
+class m190215_191337_add_view_ordered_demands_of_project extends Migration
 {
     /**
      * {@inheritdoc}
@@ -15,7 +15,7 @@ class m190210_113831_view_ordered_demands extends Migration
         //требования упорядочиваем по группам с помощью генерируемого столбца ord
         //внимание, IFNULL работает только на MySQL.
         //для Oracle можно использовать NVL
-        $this->execute('CREATE VIEW `ordered_demands` AS
+        $this->execute('CREATE VIEW `ordered_demands_of_project` AS
         SELECT * 
         FROM
             (SELECT concat(concat(IFNULL(d2.id,d1.id),\'.\'),IFNULL(d2.id-d2.id+d1.id,\'!\')) as ord,
@@ -34,7 +34,7 @@ class m190210_113831_view_ordered_demands extends Migration
      */
     public function safeDown()
     {
-        $this->execute('DROP VIEW `ordered_demands`');
+        $this->execute('DROP VIEW `ordered_demands_of_project`');
     }
 
     /*
@@ -46,7 +46,7 @@ class m190210_113831_view_ordered_demands extends Migration
 
     public function down()
     {
-        echo "m190210_113831_view_ordered_demands cannot be reverted.\n";
+        echo "m190215_191337_add_view_ordered_demands_of_project cannot be reverted.\n";
 
         return false;
     }
