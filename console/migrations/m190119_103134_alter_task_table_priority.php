@@ -12,7 +12,7 @@ class m190119_103134_alter_task_table_priority extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('task', 'priority_id', $this->integer()->notNull()->comment('Приоритет'));
+        $this->addColumn('task', 'priority_id', $this->integer()->comment('Приоритет'));
 
         $this->addForeignKey('priority-task', 'task', 'priority_id', 'priority', 'id');
     }

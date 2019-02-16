@@ -12,7 +12,7 @@ class m180902_135613_alter_table_task_create_attribute_projectid extends Migrati
      */
     public function safeUp()
     {
-        $this->addColumn('task', 'project_id', $this->integer()->notNull());
+        $this->addColumn('task', 'project_id', $this->integer());
 
         $this->addForeignKey('task-project', 'task', 'project_id', 'project', 'id');
     }
