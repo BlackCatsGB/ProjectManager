@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?php //echo $form->field($model, 'id_parent')->textInput(); ?>
 
     <?php
-    if ($is_group === false) echo $form->field($model, 'id_parent')->dropDownList(\common\models\Demands::getGroups())->label('Group name');
+    if ($is_group != true) echo $form->field($model, 'id_parent')->dropDownList(\common\models\Demands::getGroups())->label('Group name');
     ?>
 
     <div class="form-group">

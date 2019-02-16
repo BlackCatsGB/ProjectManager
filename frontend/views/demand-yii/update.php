@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Demands */
+/* @var $is_group boolean */
 
 /*$this->title = 'Update Demand';
 $this->params['breadcrumbs'][] = ['label' => 'Demands', 'url' => ['index']];
@@ -25,6 +26,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'is_group'=>$model->is_group,
     ]) ?>
 
 </div>

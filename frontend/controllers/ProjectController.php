@@ -266,6 +266,7 @@ class ProjectController extends Controller
                 'model' => $model,
             ]);
         }
+        Yii::$app->session->setFlash('error', "Insufficient permissions");
         return $this->redirect('/project');
     }
 
@@ -289,6 +290,7 @@ class ProjectController extends Controller
                 'model' => $model,
             ]);
         }
+        Yii::$app->session->setFlash('error', "Insufficient permissions");
         return $this->redirect('/project');
     }
 
@@ -343,7 +345,7 @@ class ProjectController extends Controller
                 };
             }
         }
-
+        Yii::$app->session->setFlash('error', "Insufficient permissions");
         return $this->render('view', [
             'model' => $model,
         ]);

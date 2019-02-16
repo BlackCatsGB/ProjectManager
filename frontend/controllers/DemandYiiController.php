@@ -109,14 +109,17 @@ class DemandYiiController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        //var_dump($model);
+        //echo '______________________________';
+        if ($model->load(Yii::$app->request->post())) {
+            //var_dump($model);
+            if ($model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+
+        return $this->render('update', ['model' => $model,]);
     }
 
     /**
@@ -126,7 +129,8 @@ class DemandYiiController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
@@ -140,7 +144,8 @@ class DemandYiiController extends Controller
      * @return Demands the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Demands::findOne($id)) !== null) {
             return $model;
