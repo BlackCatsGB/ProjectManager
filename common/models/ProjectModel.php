@@ -78,7 +78,7 @@ class ProjectModel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'active'], 'required'],
+            [['title', 'description'/*, 'active'*/], 'required'],
             [['description'], 'string'],
             [['created_by', 'updated_by', 'created_at', 'updated_at', 'active'], 'integer'],
             [['title'], 'string', 'max' => 255],
