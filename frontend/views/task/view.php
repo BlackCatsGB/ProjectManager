@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?if (Yii::$app->taskService->canManage($model->project, Yii::$app->user->identity)) { ?>
+    <?php if (Yii::$app->taskService->canManage($model->project, Yii::$app->user->identity)) { ?>
         <p>
             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         </p>
-    <? } ?>
+    <?php } ?>
 
     <?= DetailView::widget([
         'model' => $model,
