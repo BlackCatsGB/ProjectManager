@@ -12,10 +12,10 @@ class m190112_175752_alter_task_table_links extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('task', 'result', $this->text()->notNull()->comment('Результат'));
-        $this->addColumn('task', 'status_id', $this->integer()->notNull()->comment('Статус'));
-        $this->addColumn('task', 'deadline', $this->integer()->notNull()->comment('Срок'));
-        $this->addColumn('task', 'type_id', $this->integer()->notNull()->comment('Тип'));
+        $this->addColumn('task', 'result', $this->text()->comment('Результат'));
+        $this->addColumn('task', 'status_id', $this->integer()->comment('Статус'));
+        $this->addColumn('task', 'deadline', $this->integer()->comment('Срок'));
+        $this->addColumn('task', 'type_id', $this->integer()->comment('Тип'));
 
         $this->addForeignKey('status-task', 'task', 'status_id', 'status', 'id');
         $this->addForeignKey('type-task', 'task', 'type_id', 'type', 'id');
