@@ -21,7 +21,7 @@ class m190210_092645_alter_table_demands_disable_notnull_for_uid extends Migrati
      */
     public function safeDown()
     {
-        $this->alterColumn('demands','uid',$this->integer()->notNull());
+        //$this->alterColumn('demands','uid',$this->integer()->notNull());
     }
 
     /*
