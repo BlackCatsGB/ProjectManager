@@ -12,8 +12,8 @@ class m190114_204926_alter_table_task_2 extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('task', 'plan', $this->integer()->notNull()->comment('План по часам'));
-        $this->addColumn('task', 'fact', $this->integer()->notNull()->comment('Факт по часам'));
+        $this->addColumn('task', 'plan', $this->integer()->comment('План по часам'));
+        $this->addColumn('task', 'fact', $this->integer()->comment('Факт по часам'));
         $this->addColumn('task', 'isClosed', $this->boolean()->defaultValue(false)->comment('Задача закрыта'));
         $this->addColumn('task', 'prevTask_id', $this->integer()->comment('Предыдущая задача'));
 
