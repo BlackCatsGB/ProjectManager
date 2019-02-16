@@ -30,6 +30,7 @@ else {
     $this->params['breadcrumbs'][] = $dataProviderStageTitle->getModels()[0]['title'];
 }
 ?>
+
 <div class="project-model-index row">
     <?php /////////////////////////////////////////LEFT_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="col-md-2">
@@ -59,6 +60,10 @@ else {
     </div>
     <?php /////////////////////////////////////////CENTER_PANEL/////////////////////////////////////////////////////////; ?>
     <div class="col-md-8 container">
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            This module is intended to manage list of projects. Project lifecycle contains several stages.
+        </div>
         <div class="space_between">
             <div>
                 <h1><?= Html::encode($this->title) ?></h1>

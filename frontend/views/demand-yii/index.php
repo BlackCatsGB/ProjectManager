@@ -14,13 +14,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="demands-index container">
 
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        This module is intended to maintain general registry of requirements. It is called the "registry of requirements".
+    </div>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create group', ['create?is_group=1'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Create demand', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create group', ['create?is_group=1'], ['class' => 'btn btn-success btn-sm']) ?>
+        <?= Html::a('Create demand', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
     </p>
 
     <?= GridView::widget([

@@ -4,7 +4,7 @@ namespace frontend\controllers;
 
 use common\models\DictProjectStages;
 use common\models\OrderedDemands;
-use common\models\OrderedDemands2;
+use common\models\OrderedDemandsOfProject;
 use common\models\ProjectsDemands;
 use common\models\ProjectsOnStagesByUser;
 use kartik\grid\CheckboxColumn;
@@ -233,7 +233,7 @@ class ProjectController extends Controller
             'query' => ProjectsDemands::find()->where('fk_project=' . $id),
         ]);*/
         $dataProviderProjectDemands = new ActiveDataProvider([
-            'query' => OrderedDemands2::find()
+            'query' => OrderedDemandsOfProject::find()
                 ->where('fk_project=' . $id)
                 ->orderBy(['ord' => SORT_DESC])
                 ->indexBy('fk_demand'),
@@ -331,6 +331,7 @@ class ProjectController extends Controller
                                         FROM demands_version) p2 
                                     WHERE p1.created_at=p2.m) v
                                 WHERE d.id_version=v.id";
+                            //return $query;
                             Yii::$app->db->createCommand($query)->execute();
 
                             return $this->actionViewAnalyseStage($id);

@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 $projects = \common\models\ProjectModel::find()
-    ->byUser(Yii::$app->user->identity, \common\models\ProjectUserModel::ROLE_MANAGER)//задачи можно прикрепить только к проектам, где пользователь - менеджер
+    //->byUser(Yii::$app->user->identity, \common\models\ProjectUserModel::ROLE_MANAGER)//задачи можно прикрепить только к проектам, где пользователь - менеджер
     ->select('title')
     ->indexBy('id')
     ->column();

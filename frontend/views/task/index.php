@@ -14,9 +14,12 @@ $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="task-model-index row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8 container">
+<div class="task-model-index container">
+    <div class="table-responsive">
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            This module is intended to manage list of tasks.
+        </div>
         <h1><?= Html::encode($this->title) ?></h1>
         <?php Pjax::begin(); ?>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <?= GridView::widget([
+            'tableOptions' => ['class' => 'table table-hover'],
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
@@ -33,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'id',
                 [
                     'attribute' => 'project_id',
-                    'filter' => Yii::$app->taskService->getProjects(Yii::$app->user->identity),
+                    //'filter' => Yii::$app->taskService->getProjects(Yii::$app->user->identity),
                     'value' => function (\common\models\TaskModel $model) {
                         return Html::a($model->project->title, ['project/view', 'id' => $model->project->id]);
                         //return $model->project->title;
@@ -104,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]); //текстовая кнопка
                         }
                     ],
-                    'visibleButtons' => [
+                    /*'visibleButtons' => [
                         //кнопка update видна только для задач по проектам, где пользователь - менеджер
                         'update' => function (\common\models\TaskModel $model, $key, $index) {
                             return Yii::$app->taskService->canManage($model->project, Yii::$app->user->identity);
@@ -121,11 +125,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'finish' => function (\common\models\TaskModel $model, $key, $index) {
                             return Yii::$app->taskService->canCompele($model, Yii::$app->user->identity);
                         }
-                    ]
+                    ]*/
                 ],
             ],
         ]); ?>
         <?php Pjax::end(); ?>
     </div>
-    <div class="col-md-2"></div>
 </div>

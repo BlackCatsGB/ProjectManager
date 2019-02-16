@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\OrderedDemands;
-use common\models\OrderedDemands2;
+use common\models\OrderedDemandsOfProject;
 use Yii;
 use common\models\Demands;
 use common\models\DemandSearch;
@@ -82,9 +82,14 @@ class DemandYiiController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->is_group = $is_group;
+            $model->id_version = 1;
             if ($is_group) $model->id_parent = null;
-            if ($model->save(false)) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($is_group || $model->id_parent != null) {
+                if ($model->save(false)) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                Yii::$app->session->setFlash('error', "Please, select demand group! If the group list is empty, create a group first!");
             }
         }
 

@@ -14,11 +14,16 @@ ProjectDemandsAsset::register($this);
 /* @var $model common\models\ProjectModel */
 /* @var $dataProviderProjectDemands yii\data\ActiveDataProvider */
 
-$this->title = "Analisis of project";
+$this->title = "Analysis of project";
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-model-view container">
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>This page is intended for analysis of project. On this page you can attach project requirements.</p>
+        <p>By default all requirements are marked as relevant. Click on requirement row to change it relevance to project.</p>
+    </div>
 
     <h1><?= 'Project: '.Html::encode($model->title) ?></h1>
     <p class="card-text">Created by: <?php echo ucfirst($model->createdBy->username); ?>
@@ -27,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <div class="card">
         <div class="card-body">
-
             <h2 class="card-title">Description</h2>
             <p class="card-text"><?php echo $model->description; ?></p>
         </div>
@@ -73,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
         //'rowOptions' => ['class' => 'btn-primary'],
         'rowOptions' => function ($model, $key, $index, $grid) {
             return [
-                'class' => $model->pid==-1 ? 'bg-info text-white' : '',
+                'class' => $model->is_group==1 ? 'bg-info text-white' : '',
                 //'style' => $model->pid==-1 ? 'background-color: #aaa;' : '',
             ];
         },
@@ -91,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //формулировка требования
             [
-                'value' => function (\common\models\OrderedDemands2 $model) {
+                'value' => function (\common\models\OrderedDemandsOfProject $model) {
                     return $model->text;
                     //return Html::a($model->fkDemand->text, ['/demand', 'id' => $model->id]);
                 },

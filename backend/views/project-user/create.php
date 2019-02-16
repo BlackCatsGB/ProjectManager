@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\TaskModel */
+/* @var $model common\models\ProjectUser2 */
 
-$this->title = 'Create Task';
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->title = 'Create Project User2';
+$this->params['breadcrumbs'][] = ['label' => 'Project User2s', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="task-model-create container">
+<div class="project-user2-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

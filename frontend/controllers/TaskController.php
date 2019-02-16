@@ -56,7 +56,7 @@ class TaskController extends Controller
 
         /* @var $query TaskQuery */
         $query = $dataProvider->query;
-        $query->byUser(Yii::$app->user->id);
+        //$query->byUser(Yii::$app->user->id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

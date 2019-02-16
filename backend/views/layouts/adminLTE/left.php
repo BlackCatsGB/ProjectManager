@@ -48,6 +48,7 @@ $nouser = "http://localhost/upload/noavatar.png";
                     ['label' => 'Roles', 'url' => ['/role']],
                     ['label' => 'Permissions', 'url' => ['/permission']],
                     ['label' => 'Projects', 'url' => ['/project']],
+                    ['label' => 'Project team', 'url' => ['/project-user']],
                     ['label' => 'Project stages', 'url' => ['/dict-project-stages']],
                     /*['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],

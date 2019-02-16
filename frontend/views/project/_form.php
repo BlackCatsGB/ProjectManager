@@ -30,7 +30,8 @@ use yii\widgets\ActiveForm;
 
     <?php
     //если вызвано обновление записи о проекте
-    if (!$model->isNewRecord) {
+
+    if (!$model->isNewRecord && -1==1) {
         echo $form->field($model, \common\models\ProjectModel::RELATION_PROJECT_USERS)->widget(MultipleInput::className(), [
             'id' => 'project-users-widget',
             'max' => 6,
@@ -83,7 +84,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-sm']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

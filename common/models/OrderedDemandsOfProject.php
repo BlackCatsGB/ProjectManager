@@ -19,9 +19,10 @@ use Yii;
  * @property int $updated_by
  * @property int $created_at
  * @property int $updated_at
+ * @property int $is_group
  * @property string $comment Комментарий
  */
-class OrderedDemands2 extends \yii\db\ActiveRecord
+class OrderedDemandsOfProject extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -42,7 +43,7 @@ class OrderedDemands2 extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'id', 'fk_project', 'fk_demand', 'is_relevant', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['pid', 'id', 'fk_project', 'fk_demand', 'is_relevant', 'created_by', 'updated_by', 'created_at', 'updated_at','is_group'], 'integer'],
             [['text', 'fk_project', 'fk_demand', 'created_by', 'created_at'], 'required'],
             [['ord'], 'string', 'max' => 25],
             [['ptext', 'text'], 'string', 'max' => 2000],
@@ -69,6 +70,7 @@ class OrderedDemands2 extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'comment' => 'Comment',
+            'is_group' => 'Is Group',
         ];
     }
 }

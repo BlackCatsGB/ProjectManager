@@ -39,9 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'avatar',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
+            //'auth_key',
+            //'password_hash',
+            //'password_reset_token',
             'email:email',
 
             'created_at:datetime',
@@ -49,8 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <?php echo \yii2mod\comments\widgets\Comment::widget([
+    <?php /*echo \yii2mod\comments\widgets\Comment::widget([
         'model' => $model,
-    ]); ?>
+    ]);*/ ?>
 
 </div>

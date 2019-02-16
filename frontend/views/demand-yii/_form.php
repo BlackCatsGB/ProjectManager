@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="demands-form container">
 
+
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
@@ -22,7 +23,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-sm']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
